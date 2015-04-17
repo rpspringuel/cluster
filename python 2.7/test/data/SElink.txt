@@ -1,0 +1,14 @@
+(lp1
+(lp2
+S'm'
+aS'maximum link'
+p3
+aa(lp4
+S's'
+aS'single link'
+p5
+aa(lp6
+S'a'
+aS'average link'
+p7
+aa.
