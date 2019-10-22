@@ -74,7 +74,7 @@ def weighttest(x,w):
     See Also:
         ErrorVal (available at http://users.bigpond.net.au/gazzar/python.html)
     """
-    if w == None:
+    if w is None:
         try:
             from ErrorVal import NegErrs,PosErrs,PrimeVals
             w = 1/(NegErrs(x)+PosErrs(x))
@@ -277,7 +277,7 @@ def median(x,w=None,axis=None,NN=True):
     d = numpy.zeros(numpy.shape(x),dtype=mytype)
     d['data'] = x
     d['weight'] = w
-    if axis == None:
+    if axis is None:
         result = median_work(d,NN)
     else:
         result = numpy.apply_along_axis(median_work,axis,d,NN)
@@ -374,7 +374,7 @@ def mode(x,w=None,axis=None,NN=True):
             object in order to handle the possibility of differing numbers of
             modes in different subsets of x over axis.
     """
-    if w == None:
+    if w is None:
         try:
             from ErrorVal import NegErrs,PosErrs,PrimeVals
             w = 1/(NegErrs(x)+PosErrs(x))
@@ -391,7 +391,7 @@ def mode(x,w=None,axis=None,NN=True):
             w = numpy.zeros_like(x) + w
     if not NN:
         w = numpy.nan_to_num(w)
-    if axis == None:
+    if axis is None:
         uniques,counts = discretehistogram(x,w)
         m = uniques[counts == numpy.max(counts)]
     else:
@@ -448,7 +448,7 @@ def discretehistogram(x,w=None):
             The frequency counts of the elements of uniques in x.  counts[i]
             is the count of uniques[i].
     """
-    if w == None:
+    if w is None:
         try:
             from ErrorVal import NegErrs,PosErrs,PrimeVals
             w = 1/(NegErrs(x)+PosErrs(x))
