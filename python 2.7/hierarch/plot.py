@@ -104,7 +104,7 @@ def datasort(tree,heavy=None,weight=None):
             number of members should be sorted to.  Specify as 'left', 'right',
             or None.  If None, weight will be ignored.
         weight : ndarray
-            Optional.  Only appropriate when heavy != None.  Rank 1 array
+            Optional.  Only appropriate when not (heavy is None).  Rank 1 array
             containing weights for each data point.  I.e. the preference level
             to which that data point should go in the direction of heavy.  Used
             to selectively reorder certian branches when heavy is set.
@@ -114,8 +114,8 @@ def datasort(tree,heavy=None,weight=None):
             crossing.  Data points are identified by their integer
             identification in tree.
     """
-    if heavy != None:
-        if weight == None:
+    if not (heavy is None):
+        if weight is None:
             weight = numpy.ones(len(tree)+1)
         pop = numpy.concatenate((weight,numpy.array(tree.pop)))
         for i in range(-1,-len(tree)-1,-1):
@@ -196,7 +196,7 @@ def coordinates(tree,zero=0,distalt=None,heavy=None,weight=None,sym=False):
     for i in range(len(a)):
         coords[a[i]] = (float(i),zero)
     for i in range(-len(tree),0)[::-1]:
-        if distalt == None:
+        if distalt is None:
             y = tree[i].distance
         elif distalt == 'order':
             y = abs(i)
@@ -268,7 +268,7 @@ def treebuild(coords,tree,unmask=None,orient='v',invert=False,line='b-',p=0.95,l
         matplotlib online documenation for line and **kwargs options.
     """
     from numpy import array
-    if unmask == None:
+    if unmask is None:
         unmask = numpy.ones(len(coords),bool)
     pylab.hold(True)
     first = True
@@ -283,7 +283,7 @@ def treebuild(coords,tree,unmask=None,orient='v',invert=False,line='b-',p=0.95,l
             else:
                 print 'Invalid orientation.'
                 return
-            if label != None and first:
+            if not (label is None) and first:
                 pylab.plot(x,y,line,label=label,**kwargs)
                 first = False
             else:
@@ -295,7 +295,7 @@ def treebuild(coords,tree,unmask=None,orient='v',invert=False,line='b-',p=0.95,l
             elif orient == 'h':
                 y = [coords[i][0],coords[tree[i].right][0],coords[tree[i].right][0]]
                 x = [coords[i][1],coords[i][1],coords[tree[i].right][1]]
-            if label != None and first:
+            if not (label is None) and first:
                 pylab.plot(x,y,line,label=label,**kwargs)
                 first = False
             else:
@@ -356,7 +356,7 @@ def clusterlabels(coords,labels,unmask=None,fontdict=None,**kwargs):
     See Also:
         matplotlib online documentation for fontdict and **kwargs options.
     """
-    if unmask == None:
+    if unmask is None:
         unmask = numpy.ones(len(coords),bool)
     for i in range(len(coords)):
         if unmask[i]:
@@ -397,7 +397,7 @@ def datalabels(tree,dlabels,heavy=None,weight=None,unmask=None,orient='v',fontdi
         immediately.  Otherwise it will not be visible until a pylab.show()
         command is issued.
     """
-    if unmask == None:
+    if unmask is None:
         unmask = numpy.ones(len(dlabels),bool)
     a = datasort(tree,heavy,weight)
     dl = []
@@ -472,7 +472,7 @@ def wholetree(tree,dlabels=None,heavy=None,weight=None,line='b-',sym=False,p=0.9
     """
     coords = coordinates(tree,0,None,heavy,weight,sym)
     treebuild(coords,tree,None,'v',False,line,p)
-    if dlabels != None:
+    if not (dlabels is None):
         datalabels(tree,dlabels,heavy,weight,'v',fontdict=fontdict,**kwargs)
     return
 
@@ -521,7 +521,7 @@ def poptree(tree,heavy=None,weight=None,line='b-',sym=False,p=0.95,lowerlimit=1,
         plot window.  If it is off then it can be made to appear with a
         pylab.show() command.
     """ 
-    if weight == None:
+    if weight is None:
         pop = tree.pop
     else:
         pop = tree.pop*weight
@@ -582,7 +582,7 @@ def fadetree(tree,heavy=None,weight=None,line='b-',sym=False,p=0.95,fontdict=Non
         plot window.  If it is off then it can be made to appear with a
         pylab.show() command.
     """
-    if weight == None:
+    if weight is None:
         pop = tree.pop
     else:
         pop = tree.pop*weight

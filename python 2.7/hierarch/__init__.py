@@ -76,7 +76,7 @@ hierarchmodifier = 'R. Padraic Springuel'
 hierarchversionnum = '1.6.1'
 hierarchmodified = '11 March, 2008'
 hierarchmodifier = 'R. Padraic Springuel'
-#Bug fix: The way the tie breaking rule in aggtreecluster was being implemented led to n1 and n2 not being reassigned negative values when appropriate when no tie breaking condition was set (i.e. aggr == None).  Fixed this by adding an else statement to the if aggr != None clause.
+#Bug fix: The way the tie breaking rule in aggtreecluster was being implemented led to n1 and n2 not being reassigned negative values when appropriate when no tie breaking condition was set (i.e. aggr is None).  Fixed this by adding an else statement to the if not (aggr is None) clause.
 
 hierarchversionnum = '1.6.2'
 hierarchmodified = '1 April, 2008'
@@ -280,11 +280,11 @@ class AggNode(object):
         self.left = left
         self.right = right
         self.distance = distance
-        if leftalias == None:
+        if leftalias is None:
             self.leftalias = str(left)
         else:
             self.leftalias = leftalias
-        if rightalias == None:
+        if rightalias is None:
             self.rightalias = str(right)
         else:
             self.rightalias = rightalias
@@ -582,7 +582,7 @@ class AggTree(object):
                 Only returned if no a is given.  List of each numerical
                 identifier for data or nodes with the corresponding alias.
         """
-        if a == None:
+        if a is None:
             a = []
             for i in self.nodes:
                 try:
@@ -797,14 +797,14 @@ def aggtreecluster(data=None,weights=None,dist='e',tie=None,link='m',distancemat
     See Also:
         stats.singleclustercentroid, stats.fulldistancematrix, wardLN
     """
-    if data == None and distancematrix == None:
+    if data is None and distancematrix is None:
         raise RuntimeError('Either data or distancematrix must be given.')
-    elif data != None and distancematrix != None and len(data) != len(distancematrix):
+    elif not (data is None) and not (distancematrix is None) and len(data) != len(distancematrix):
         raise RuntimeError('data and distancematrix are of incompatible sizes.')
-    elif data == None and type(link) is types.StringType:
+    elif data is None and type(link) is types.StringType:
         if link[0] == 'c' and not (link == 'ca' and dist == 'p'):
             raise RuntimeError('Centroid-linkage cannot be used without data.')
-    elif distancematrix == None:
+    elif distancematrix is None:
         if verbose:
             print 'Calculating distance matrix.'
         distancematrix = stats.fulldistancematrix(data,weights,dist,verbose)
@@ -1159,11 +1159,11 @@ class DivNode(object):
         right.sort()
         self.right = right
         self.distance = distance
-        if leftalias == None:
+        if leftalias is None:
             self.leftalias = str(left)
         else:
             self.leftalias = leftalias
-        if rightalias == None:
+        if rightalias is None:
             self.rightalias = str(right)
         else:
             self.rightalias = rightalias
@@ -1337,7 +1337,7 @@ class DivTree(object):
                 Only returned if no a is given.  List of each numerical
                 identifier for data or nodes with the corresponding alias.
         """
-        if a == None:
+        if a is None:
             a = []
             for i in self.nodes:
                 if str(i.left) != i.leftalias:
@@ -1393,11 +1393,11 @@ def divtreecluster(data=None,weights=None,dist='e',distancematrix=None):
         stats.fulldistancematrix
     """
     raise NotImplementedError('Divisive clustering is not available yet.')
-    if data == None and distancematrix == None:
+    if data is None and distancematrix is None:
         raise RuntimeError('Either data or distancematrix must be given.')
-    elif data != None and distancematrix != None:
+    elif not (data is None) and not (distancematrix is None):
         raise RuntimeError('Either data or distancematrix must be None.')
-    elif distancematrix == None:
+    elif distancematrix is None:
         distancematrix = stats.fulldistancematrix(data,weights,dist)
     elif type(distancematrix) is list:
         for i in range(len(distancematrix)):
