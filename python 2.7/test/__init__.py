@@ -69,6 +69,12 @@ testmodified = '11 August, 2010'
 testmodifier = 'R. Padraic Springuel'
 #Modal links on centroids require too much time to test with a random test data set.  Those tests have been removed until a test data set that can be processed in a reasonable time is developed.
 
+testversionnum = '2.0.0'
+testmodified = '22 October, 2019'
+testmodifier = 'R. Padraic Springuel'
+#Update all tests to work with Python 2.7.16, numpy 1.16.4, cPickle 1.17
+
+
 ##########################
 ## Liscense Information ##
 ##########################
