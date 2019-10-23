@@ -383,7 +383,7 @@ def old_silhouette(point,clusterid,dm=None,data=None,weight=None,dist='e'):
             The silhouette coefficient for the given point in the data set.
     """
     warnings.warn('old_silhouette is a legacy fucntion and is kept primarily to aid in conversions to and from PyCluster.  If you are not using PyCluster it is recommended that you modify your program to use silhouette instead.',DeprecationWarning,stacklevel=2)
-    if dm == None:
+    if dm is None:
         d = []
         for i in range(len(data)):
             d.append(distances.distance(data[point],data[i],weight,dist))
@@ -481,7 +481,7 @@ def silhouette(point,levs,dm=None,data=None,weight=None,dist='e'):
         sil : float
             The silhouette coefficient for the given point in the data set.
     """
-    if dm == None:
+    if dm is None:
         d = []
         for i in range(len(data)):
             d.append(distances.distance(data[point],data[i],weight,dist))
@@ -683,7 +683,7 @@ def old_singleclustercentroid(data,mem=None,method='a',transpose=False):
             Rank 1 array containing the centroid.
     """
     warnings.warn('old_singleclustercentroid is a legacy fucntion and is kept primarily to aid in conversions to and from PyCluster.  If you are not using PyCluster it is recommended that you modify your program to use singleclustercentroid instead.',DeprecationWarning,stacklevel=2)
-    if mem == None:
+    if mem is None:
         if transpose:
             mem = range(len(data[0]))
         else:
@@ -782,7 +782,7 @@ def singleclustercentroid(data,lev,p=1.,method='a',weights=None,distancematrix=N
     elif method == 'd':
         centroid = _support.mode(data,lev**p,axis=0,NN=False)
     elif method[0] == 'o':
-        if distancematrix == None:
+        if distancematrix is None:
             d = fulldistancematrix(data,weights,method[1:])
         else:
             d = distancematrix
@@ -832,7 +832,7 @@ def old_clustercentroids(data,mems=None,clusterid=None,method='a',transpose=Fals
             a centroid.
     """
     warnings.warn('old_clustercentroids is a legacy fucntion and is kept primarily to aid in conversions to and from PyCluster.  If you are not using PyCluster it is recommended that you modify your program to use clustercentroids instead.',DeprecationWarning,stacklevel=2)
-    if mems == None:
+    if mems is None:
         mems = members(clusterid)
     cdata = []
     for mem in mems:
@@ -891,7 +891,7 @@ def clustercentroids(data,levs,p=1.,method='a',weights=None,distancematrix=None)
             warnings.warn('levs has empty clusters.',UserWarning,stacklevel=2)
         if len(check[3]) > 0:
             warnings.warn('levs has overfull clusters.',UserWarning,stacklevel=2)
-    if distancematrix == None and method[0] == 'o':
+    if distancematrix is None and method[0] == 'o':
         distancematrix = fulldistancematrix(data,weights,method[1:])
     for i in range(len(levs[0])):
         cdata.append(singleclustercentroid(data,levs[:,i],p,method,weights,distancematrix))
@@ -1075,7 +1075,7 @@ def SEmatrix(data,levs,p=1.,method='a',dist='e',weights=None,cdata=None,distance
             point/cluster contribution.  Row indecies correspond to points 
             and column indecies to clusters.
     """
-    if cdata == None:
+    if cdata is None:
         cdata = clustercentroids(data,levs,p,method,weights,distancematrix)
     sse = numpy.zeros((len(data),len(levs[0])),dtype=float)
     for i in range(len(data)):
