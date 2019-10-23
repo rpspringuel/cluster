@@ -125,7 +125,7 @@ import hierarch.plot
 ## Module Functions ##
 ######################
 
-def test(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
+def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
     """Tests to see if cluster is working properly.
     
     Parameters:
