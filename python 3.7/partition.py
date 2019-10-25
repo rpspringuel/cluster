@@ -176,7 +176,7 @@ def kmeans(data,nclusters=2,weights=None,method='a',dist='e',initial=None,thresh
     See Also:
         stats.singleclustercentroid, distances.distance
     """
-    if initial == None:
+    if initial is None:
         initial = numpy.random.random((nclusters,len(data[0])))*(numpy.max(data)-numpy.min(data))+numpy.min(data)
     elif stats.levscheck(initial)[0]:
         initial = stats.clustercentroids(data,initial,1.,method)
@@ -250,13 +250,13 @@ def cmeans(data,nclusters=2,weights=None,p=2.,method='a',dist='e',initial=None,r
         stats.singleclustercentroid, distances.distance
     """
     if p == 1:
-        if initial == None:
+        if initial is None:
             levs = kmeans(data,nclusters,weights,method,dist)
         else:
             cdata = stats.clustercentroids(data,initial,p,method)
             levs = kmeans(data,nclusters,weights,method,dist,cdata)
     else:
-        if initial == None:
+        if initial is None:
             initial = numpy.random.random((len(data),nclusters))
             initial *= 1./numpy.sum(initial,axis=0)
         levs = numpy.zeros_like(initial)
@@ -336,7 +336,7 @@ def cmeans_noise(data,nclusters=2,weights=None,p=2.,method='a',dist='e',initial=
     if p == 1:
         raise ValueError('p cannot be 1 when a noise cluster is present.')
     else:
-        if initial == None:
+        if initial is None:
             initial = numpy.random.rand((len(data),nclusters))
             initial *= 1./numpy.sum(initial,axis=0)        
         initial = numpy.append(initial,numpy.zeros((len(data),1)),axis=1)

@@ -223,20 +223,20 @@ def distance(a,b,weights=None,dist='e'):
         raise TypeError('Second vector must have type numpy.ndarray')
     elif len(a) != len(b):
         raise ValueError('Vectors must have the same length')
-    elif weights != None and len(weights) != len(a):
+    elif not (weights is None) and len(weights) != len(a):
         raise ValueError('There must be the same number of weights as the vector length')
     elif numpy.isnan(a*b).all():
         d = numpy.nan
     else:
-        if weights != None and dist[0] == 's':
+        if not (weights is None) and dist[0] == 's':
             warnings.warn('weights are not well defined for spearman distances and will be ignored',UserWarning,stacklevel=2)
-        elif weights != None and dist == 'k':
+        elif not (weights is None) and dist == 'k':
             warnings.warn('weights are not well defined for kendal distances and will be ignored',UserWarning,stacklevel=2)
-        elif weights != None and dist == 'Linf':
+        elif not (weights is None) and dist == 'Linf':
             warnings.warn('weights are not well defined for chebychev distances and will be ignored',UserWarning,stacklevel=2)
         a = a.astype('float')
         b = b.astype('float')
-        if weights == None:
+        if weights is None:
             weights = numpy.ones_like(a)
         if dist == 'e':
             d = euclidean(a,b,weights)
