@@ -1,0 +1,25 @@
+(lp1
+(lp2
+NaS'No Ties'
+p3
+aa(lp4
+S'aggr'
+p5
+aS'Aggresive Group Formation'
+p6
+aa(lp7
+S'doc'
+p8
+aS'Docile Group Formation'
+p9
+aa(lp10
+S'random'
+p11
+aS'Random tie resolution'
+p12
+aa(lp13
+S'sas'
+p14
+aS'SAS/STAT tie breaking method'
+p15
+aa.

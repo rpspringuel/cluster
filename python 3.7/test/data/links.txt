@@ -1,0 +1,59 @@
+(lp1
+(lp2
+S's'
+aS'Single Link'
+p3
+aa(lp4
+S'm'
+aS'Complete Link'
+p5
+aa(lp6
+S'ca'
+p7
+aS'Centroid Link'
+p8
+aa(lp9
+S'a'
+aS'Average Link'
+p10
+aa(lp11
+S'w'
+aS"Ward's Link"
+p12
+aa(lp13
+S'g'
+aS"Grower's Link"
+p14
+aa(lp15
+F0.40000000000000002
+aS'Flexible Strategy'
+p16
+aa(lp17
+cnumpy.core.multiarray
+_reconstruct
+p18
+(cnumpy
+ndarray
+p19
+(I0
+tS'b'
+tRp20
+(I1
+(I4
+tcnumpy
+dtype
+p21
+(S'f8'
+I0
+I1
+tRp22
+(I3
+S'<'
+NNNI-1
+I-1
+I0
+tbI00
+S'\x9a\x99\x99\x99\x99\x99\xc9?333333\xd3?\x9a\x99\x99\x99\x99\x99\xd9?\x00\x00\x00\x00\x00\x00\xe0?'
+tbaS'Lance-Wiliams Coefficients'
+p23
+aa.
