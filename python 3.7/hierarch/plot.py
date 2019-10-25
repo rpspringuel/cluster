@@ -203,7 +203,7 @@ def coordinates(tree,zero=0,distalt=None,heavy=None,weight=None,sym=False):
     for i in range(-len(tree),0)[::-1]:
         if distalt is None:
             y = tree[i].distance
-        elif distalt == 'order':
+        elif type(distalt) is str and distalt == 'order':
             y = abs(i)
         else:
             y = distalt[i]
