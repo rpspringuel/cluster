@@ -636,9 +636,9 @@ class AggTree(object):
             text += '; %s' % i.leftalias
             text += ' & %s' % i.rightalias
             text += '\n'
-        a = file(filename, 'w')
-        file.writelines(a,text)
-        file.close(a)
+        a = open(filename, 'w')
+        a.writelines(text)
+        a.close()
         return
     def cophenetic(self,distance):
         """The cophenetic distance matrix for the tree.
@@ -685,8 +685,8 @@ def loadaggtree(filename):
             The name of the file where the tree that is to be retrieved is
             stored.
     """
-    a = file(filename)
-    b = file.readlines(a)
+    a = open(filename)
+    b = a.readlines()
     nodes = []
     for i in range(len(b)):
         left = int(b[i][b[i].index('(')+1:b[i].index(',')])
