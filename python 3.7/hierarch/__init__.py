@@ -848,76 +848,67 @@ def aggtreecluster(data=None,weights=None,dist='e',tie=None,link='m',distancemat
         print('%i, %i: %f' % (n1,n2,m))
     tree = AggTree([AggNode(n1,n2,m)])
     tree.pop[-1] = 2
-    if type(link) is bytes:
+    if type(link) is str:
         if link[0] == 'c':
             centroid = []
     LW = True
     while len(tree) < N-1:
         current.remove(n1)
         current.remove(n2)
-        if link == 's':
-            alphaA = alphaB = 0.5
-            beta = 0.
-            gamma = -0.5
-        elif link == 'm':
-            alphaA = alphaB = 0.5
-            beta = 0.
-            gamma = 0.5
-        elif link == 'a':
-            if n1 < 0 and n2 < 0:
-                alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+tree.pop[n2])
-                alphaB = 1.*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])
-            elif n1 < 0:
-                alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+1.)
-                alphaB = 1./(tree.pop[n1]+1.)
-            elif n2 < 0:
-                alphaA = 1./(1.+tree.pop[n2])
-                alphaB = 1.*tree.pop[n2]/(1.+tree.pop[n2])
-            else:
+        if type(link) is str:
+            if link == 's':
+                alphaA = alphaB = 0.5
+                beta = 0.
+                gamma = -0.5
+            elif link == 'm':
+                alphaA = alphaB = 0.5
+                beta = 0.
+                gamma = 0.5
+            elif link == 'a':
+                if n1 < 0 and n2 < 0:
+                    alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+tree.pop[n2])
+                    alphaB = 1.*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])
+                elif n1 < 0:
+                    alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+1.)
+                    alphaB = 1./(tree.pop[n1]+1.)
+                elif n2 < 0:
+                    alphaA = 1./(1.+tree.pop[n2])
+                    alphaB = 1.*tree.pop[n2]/(1.+tree.pop[n2])
+                else:
+                    alphaA = 0.5
+                    alphaB = 0.5
+                beta = 0.
+                gamma = 0.
+            elif link == 'p':
                 alphaA = 0.5
                 alphaB = 0.5
-            beta = 0.
-            gamma = 0.
-        elif link == 'p':
-            alphaA = 0.5
-            alphaB = 0.5
-            beta = 0.
-            gamma = 0.
-        elif link == 'ca' and dist == 'p':
-            if n1 < 0 and n2 < 0:
-                alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+tree.pop[n2])
-                alphaB = 1.*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])
-                beta = -1.*tree.pop[n1]*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])**2
-            elif n1 < 0:
-                alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+1.)
-                alphaB = 1./(tree.pop[n1]+1.)
-                beta = -1.*tree.pop[n1]/(tree.pop[n1]+1.)**2
-            elif n2 < 0:
-                alphaA = 1./(1.+tree.pop[n2])
-                alphaB = 1.*tree.pop[n2]/(1.+tree.pop[n2])
-                beta = -1.*tree.pop[n2]/(1.+tree.pop[n2])**2
-            else:
-                alphaA = 0.5
-                alphaB = 0.5
+                beta = 0.
+                gamma = 0.
+            elif link == 'ca' and dist == 'p':
+                if n1 < 0 and n2 < 0:
+                    alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+tree.pop[n2])
+                    alphaB = 1.*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])
+                    beta = -1.*tree.pop[n1]*tree.pop[n2]/(tree.pop[n1]+tree.pop[n2])**2
+                elif n1 < 0:
+                    alphaA = 1.*tree.pop[n1]/(tree.pop[n1]+1.)
+                    alphaB = 1./(tree.pop[n1]+1.)
+                    beta = -1.*tree.pop[n1]/(tree.pop[n1]+1.)**2
+                elif n2 < 0:
+                    alphaA = 1./(1.+tree.pop[n2])
+                    alphaB = 1.*tree.pop[n2]/(1.+tree.pop[n2])
+                    beta = -1.*tree.pop[n2]/(1.+tree.pop[n2])**2
+                else:
+                    alphaA = 0.5
+                    alphaB = 0.5
+                    beta = -0.25
+                gamma = 0.
+            elif link == 'w':
+                alphaA,alphaB,beta,gamma = wardLW(n1,n2,tree,N)
+            elif link == 'g':
+                alphaA = alphaB = 0.5
                 beta = -0.25
-            gamma = 0.
-        elif link == 'w':
-            alphaA,alphaB,beta,gamma = wardLW(n1,n2,tree,N)
-        elif link == 'g':
-            alphaA = alphaB = 0.5
-            beta = -0.25
-            gamma = 0
-        elif type(link) is float:
-            beta = link
-            alphaA = alphaB = (1. - beta)/2.
-            gamma = 0
-        elif type(link) is numpy.ndarray:
-            alphaA = link[0]
-            alphaB = link[1]
-            beta = link[2]
-            gamma = link[3]
-        elif type(link) is bytes:
-            if link[0] == 'c':
+                gamma = 0
+            elif link[0] == 'c':
                 LW = False
                 dec = tree.decendants(n1) + tree.decendants(n2) + [n1,n2]
                 dec = numpy.array(dec)
@@ -951,7 +942,7 @@ def aggtreecluster(data=None,weights=None,dist='e',tie=None,link='m',distancemat
                             elif link[2] == 'a':
                                 distancematrix[-len(tree),i] = distancematrix[i,-len(tree)] = numpy.mean(d)
                             else:
-                                raise ValueError('Link type not supported.')
+                                raise ValueError('Link method ' + link + ' not supported.')
                         else:
                             d = numpy.zeros((len(cent),len(centroid[i])))
                             for n in range(len(cent)):
@@ -964,7 +955,7 @@ def aggtreecluster(data=None,weights=None,dist='e',tie=None,link='m',distancemat
                             elif link[2] == 'a':
                                 distancematrix[-len(tree),i] = distancematrix[i,-len(tree)] = numpy.mean(d)
                             else:
-                                raise ValueError('Link type not supported.')
+                                raise ValueError('Link method ' + link + ' not supported.')
                     centroid[0] = cent.copy()
                 else:
                     for i in current:
@@ -972,10 +963,21 @@ def aggtreecluster(data=None,weights=None,dist='e',tie=None,link='m',distancemat
                             distancematrix[-len(tree),i] = distancematrix[i,-len(tree)] = distances.distance(data[i],centroid[0],weights,dist)
                         else:
                             distancematrix[-len(tree),i] = distancematrix[i,-len(tree)] = distances.distance(centroid[i],centroid[0],weights,dist)
+            else:
+                raise ValueError('Link method ' + link + ' not supported.')
+        elif type(link) is float:
+            beta = link
+            alphaA = alphaB = (1. - beta)/2.
+            gamma = 0
+        elif type(link) is numpy.ndarray:
+            alphaA = link[0]
+            alphaB = link[1]
+            beta = link[2]
+            gamma = link[3]
         elif type(link) is types.FunctionType:
             alphaA,alphaB,beta,gamma = link(n1,n2,tree)
         else:
-            raise ValueError('Link type not recognized.')
+            raise ValueError('Link type "'+ type(link) + '" not valid.\nMust be string, float, ndarray, or function.')
         if LW:
             distancematrix[-len(tree)] = distancematrix[:,-len(tree)] = alphaA*distancematrix[n1] + alphaB*distancematrix[n2] + beta*distancematrix[n1,n2] + gamma*numpy.abs(distancematrix[n1]-distancematrix[n2])
         current.append(-len(tree))
