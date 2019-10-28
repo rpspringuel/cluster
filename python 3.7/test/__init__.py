@@ -162,13 +162,13 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         warnings.simplefilter('ignore')
         testnum = 0
         testfail = 0
-        a = numpy.load(dir + 'distance_a.txt', allow_pickle=True)
-        b = numpy.load(dir + 'distance_b.txt', allow_pickle=True)
-        c = numpy.load(dir + 'distance_c.txt', allow_pickle=True, encoding='latin1')
-        weights = numpy.load(dir + 'distance_weights.txt', allow_pickle=True, encoding='latin1')
-        f = open(dir + 'distance_dist.txt', 'rb')
+        a = numpy.load(dir + 'distance_a.pkl', allow_pickle=True)
+        b = numpy.load(dir + 'distance_b.pkl', allow_pickle=True)
+        c = numpy.load(dir + 'distance_c.pkl', allow_pickle=True, encoding='latin1')
+        weights = numpy.load(dir + 'distance_weights.pkl', allow_pickle=True, encoding='latin1')
+        f = open(dir + 'distance_dist.pkl', 'rb')
         dist = pickle.load(f)
-        f = open(dir + 'distances_no_missing.txt', 'rb')
+        f = open(dir + 'distances_no_missing.pkl', 'rb')
         distances_no_missing = pickle.load(f, encoding='latin1')
         for i in dist:
             d = cluster.distances.distance(a,b,weights,i[0])
@@ -180,7 +180,7 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                     print('%s distance fails without missing data' % i[1])
                 testfail += 1
             testnum += 1
-        f = open(dir + 'distances_missing.txt', 'rb')
+        f = open(dir + 'distances_missing.pkl', 'rb')
         distances_missing = pickle.load(f, encoding='latin1')
         for i in dist:
             d = cluster.distances.distance(a,c,weights,i[0])
@@ -199,8 +199,8 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     testfail = 0
     print('Testing stats module')
     #distancematrix (data)
-    data = numpy.load(dir + 'data.txt', allow_pickle=True, encoding='latin1')
-    f = open(dir + 'distancematrix.txt', 'rb')
+    data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
+    f = open(dir + 'distancematrix.pkl', 'rb')
     distancematrix = pickle.load(f,encoding='latin1')
     dm = cluster.stats.distancematrix(data)
     t = True
@@ -216,7 +216,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #fulldistancematrix (data)
-    fulldistancematrix = numpy.load(dir + 'fulldistancematrix.txt', allow_pickle=True, encoding='latin1')
+    fulldistancematrix = numpy.load(dir + 'fulldistancematrix.pkl', allow_pickle=True, encoding='latin1')
     fdm = cluster.stats.fulldistancematrix(data)
     t = numpy.allclose(fdm,fulldistancematrix,rtol,atol)
     if t and verbose > 1:
@@ -227,8 +227,8 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #silhouette (dm, levs)
-    levs = numpy.load(dir + 'levs.txt', allow_pickle=True, encoding='latin1')
-    silhouette = numpy.load(dir + 'silhouette.txt', allow_pickle=True, encoding='latin1')
+    levs = numpy.load(dir + 'levs.pkl', allow_pickle=True, encoding='latin1')
+    silhouette = numpy.load(dir + 'silhouette.pkl', allow_pickle=True, encoding='latin1')
     sil = cluster.stats.silhouette(1,levs,dm=distancematrix)
     t = numpy.allclose(sil,silhouette,rtol,atol)
     if t and verbose > 1:
@@ -239,7 +239,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1    
     #levscheck (levs)
-    f = open(dir + 'check1.txt', 'rb')
+    f = open(dir + 'check1.pkl', 'rb')
     check1 = pickle.load(f)
     c = cluster.stats.levscheck(levs)
     if check1[0] and c[0] and verbose > 1:
@@ -249,7 +249,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
             print('levscheck fails on good levs array')
         testfail += 1
     testnum += 1    
-    f = open(dir + 'check2.txt', 'rb')
+    f = open(dir + 'check2.pkl', 'rb')
     check2 = pickle.load(f)
     levs2 = numpy.concatenate([levs,numpy.zeros((len(levs),1)),numpy.ones((len(levs),1))],axis=1)
     c = cluster.stats.levscheck(levs2)
@@ -266,9 +266,9 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #singleclustercentroid (data, lev)
-    f = open(dir + 'method.txt', 'rb')
+    f = open(dir + 'method.pkl', 'rb')
     method = pickle.load(f)
-    f = open(dir + 'singleclustercentroid.txt', 'rb')
+    f = open(dir + 'singleclustercentroid.pkl', 'rb')
     singleclustercentroid = pickle.load(f, encoding='latin1')
     for i in method:
         c = cluster.stats.singleclustercentroid(data,lev=levs[:,0],method=i[0])
@@ -284,7 +284,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
             testfail += 1
         testnum += 1
     #clustercentroids (data, levs)
-    clustercentroids = numpy.load(dir + 'clustercentroids.txt', allow_pickle=True, encoding='latin1')
+    clustercentroids = numpy.load(dir + 'clustercentroids.pkl', allow_pickle=True, encoding='latin1')
     c = cluster.stats.clustercentroids(data,levs)
     t = numpy.allclose(c,clustercentroids,rtol,atol)
     if t and verbose > 1:
@@ -295,7 +295,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #SEmatrix (data, levs)
-    SEmatrix = numpy.load(dir + 'SEmatrix.txt', allow_pickle=True, encoding='latin1')
+    SEmatrix = numpy.load(dir + 'SEmatrix.pkl', allow_pickle=True, encoding='latin1')
     c = cluster.stats.SEmatrix(data,levs)
     t = numpy.allclose(c,SEmatrix,rtol,atol)
     if t and verbose > 1:
@@ -305,11 +305,11 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
             print('SEmatrix fails')
         testfail += 1
     testnum += 1
-    f = open(dir + 'SEmatrix_mode.txt', 'rb')
+    f = open(dir + 'SEmatrix_mode.pkl', 'rb')
     SEmatrix_mode = pickle.load(f, encoding='latin1')
-    f = open(dir + 'SElink.txt', 'rb')
+    f = open(dir + 'SElink.pkl', 'rb')
     SElink = pickle.load(f)
-    SEdata = numpy.load(dir + 'SEdata.txt', allow_pickle=True)
+    SEdata = numpy.load(dir + 'SEdata.pkl', allow_pickle=True)
     for i in SElink:
         c = cluster.stats.SEmatrix(SEdata,levs,link=i[0],method='d')
         t = numpy.allclose(c,SEmatrix_mode[i[0]],rtol,atol)
@@ -340,9 +340,9 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     cluster.hierarch.rtol = rtol
     cluster.hierarch.atol = atol
     #loadaggtree (filename)
-    f = open(dir + 'tree.txt', 'rb')
+    f = open(dir + 'tree.pkl', 'rb')
     tree = pickle.load(f)
-    tr = cluster.hierarch.loadaggtree(dir + 'tr.txt')
+    tr = cluster.hierarch.loadaggtree(dir + 'tr.pkl')
     t = tree == tr
     if t and verbose > 1:
         print('loadaggtree passes')
@@ -352,7 +352,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #AggTree[i] = AggNode
-    f = open(dir + 'node.txt', 'rb')
+    f = open(dir + 'node.pkl', 'rb')
     node = pickle.load(f)
     t = node == tree[0]
     if t and verbose > 1:
@@ -363,15 +363,15 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #aggtreecluster(link,aggr,distancematrix)
-    f = open(dir + 'links.txt', 'rb')
+    f = open(dir + 'links.pkl', 'rb')
     links = pickle.load(f, encoding='latin1')
-    f = open(dir + 'tie.txt', 'rb')
+    f = open(dir + 'tie.pkl', 'rb')
     tie = pickle.load(f)
-    fulldistancematrix = numpy.load(dir + 'fulldistancematrix.txt', allow_pickle=True, encoding='latin1')
+    fulldistancematrix = numpy.load(dir + 'fulldistancematrix.pkl', allow_pickle=True, encoding='latin1')
     for i in links:
         for j in tie:
             tree = cluster.hierarch.aggtreecluster(distancematrix = fulldistancematrix,link=i[0],tie=j[0],dist='p')
-            filename = 'tree_%s_%s.txt' % (i[0],j[0])
+            filename = 'tree_%s_%s.pkl' % (i[0],j[0])
             tr = cluster.hierarch.loadaggtree(dir + filename)
             t = tr == tree
             if t and verbose > 1:
@@ -381,13 +381,13 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                     print('aggtreecluster fails with %s and %s' % (i[1],j[1]))
                 testfail += 1
             testnum += 1
-    data = numpy.load(dir + 'data.txt', allow_pickle=True, encoding='latin1')
-    f = open(dir + 'clinks.txt', 'rb')
+    data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
+    f = open(dir + 'clinks.pkl', 'rb')
     clinks = pickle.load(f)
     for i in clinks:
         for j in tie:
             tree = cluster.hierarch.aggtreecluster(data=data,link=i[0],tie=j[0])
-            filename = 'tree_%s_%s.txt' % (i[0],j[0])
+            filename = 'tree_%s_%s.pkl' % (i[0],j[0])
             tr = cluster.hierarch.loadaggtree(dir + filename)
             t = tr == tree
             if t and verbose > 1:
@@ -398,7 +398,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 testfail += 1
             testnum += 1
     #AggTree.save(filename)
-    filename = 'dummy.txt'
+    filename = 'dummy.pkl'
     tree.save(dir + filename)
     tr = cluster.hierarch.loadaggtree(dir + filename)
     t = tr == tree
@@ -426,7 +426,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     testnum += 1
     #AggTree.ancestors(node)
     anc = tree.ancestors(0)
-    f = open(dir + 'ancestors.txt', 'rb')
+    f = open(dir + 'ancestors.pkl', 'rb')
     ancestors = pickle.load(f)
     t = anc == ancestors
     if t and verbose > 1:
@@ -438,7 +438,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     testnum += 1
     #AggTree.decendants(node)
     dec = tree.decendants(-2)
-    f = open(dir + 'decendants.txt', 'rb')
+    f = open(dir + 'decendants.pkl', 'rb')
     decendants = pickle.load(f)
     t = dec == decendants
     if t and verbose > 1:
@@ -449,7 +449,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #AggTree.cut(nclusters)
-    cut = numpy.load(dir + 'cut.txt', allow_pickle=True, encoding='latin1')
+    cut = numpy.load(dir + 'cut.pkl', allow_pickle=True, encoding='latin1')
     c = tree.cut(12)
     t = numpy.allclose(c,cut,rtol,atol)
     if t and verbose > 1:
@@ -470,7 +470,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #AggTree.scale()
-    f = open(dir + 'tree_scaled.txt', 'rb')
+    f = open(dir + 'tree_scaled.pkl', 'rb')
     tr = pickle.load(f, encoding='latin1')
     tree.scale()
     t = tree == tr
@@ -482,10 +482,10 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #AggTree.cophenetic()
-    f = open(dir + 'kind.txt', 'rb')
+    f = open(dir + 'kind.pkl', 'rb')
     kind = pickle.load(f)
     for i in kind:
-        filename = 'cop_%s.txt' % i[0]
+        filename = 'cop_%s.pkl' % i[0]
         cop = numpy.load(dir + filename, allow_pickle=True, encoding='latin1')
         cophenetic = tree.cophenetic(i[0])
         t = numpy.allclose(cophenetic,cop,rtol,atol)
@@ -506,7 +506,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #str(AggTree)
-    f = open(dir + 'treestring.txt', 'rb')
+    f = open(dir + 'treestring.pkl', 'rb')
     treestring = pickle.load(f)
     t = treestring == str(tree)
     if t and verbose > 1:
@@ -517,11 +517,11 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #plot.datasort(tree,heavy,weight)
-    f = open(dir + 'heavy.txt', 'rb')
+    f = open(dir + 'heavy.pkl', 'rb')
     heavy = pickle.load(f)
-    plot_weight = numpy.load(dir + 'plot_weight.txt', allow_pickle=True, encoding='latin1')
+    plot_weight = numpy.load(dir + 'plot_weight.pkl', allow_pickle=True, encoding='latin1')
     for i in heavy:
-        filename = 'plot_datasort_%s.txt' % i[0]
+        filename = 'plot_datasort_%s.pkl' % i[0]
         plot_datasort = cluster.hierarch.plot.datasort(tree,i[0],plot_weight)
         f = open(dir + filename, 'rb')
         pd = pickle.load(f)
@@ -534,13 +534,13 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
             testfail += 1
         testnum += 1
     #plot.coordinates(tree,zero,distalt,sym)
-    f = open(dir + 'distalt.txt', 'rb')
+    f = open(dir + 'distalt.pkl', 'rb')
     distalt = pickle.load(f, encoding='latin1')
-    f = open(dir + 'sym.txt', 'rb')
+    f = open(dir + 'sym.pkl', 'rb')
     sym = pickle.load(f)
     for i in distalt:
         for j in sym:
-            filename = 'coords_%s_%s.txt' % (i[1],j[0])
+            filename = 'coords_%s_%s.pkl' % (i[1],j[0])
             f = open(dir + filename, 'rb')
             coords = cluster.hierarch.plot.coordinates(tree,zero=-1,distalt=i[0], sym=j[0])
             coordinates = pickle.load(f, encoding='latin1')
@@ -567,9 +567,9 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     testfail = 0
     print('Testing partition module')
     #kmeans(data,nclusters,initial,threshold)
-    data = numpy.load(dir + 'data.txt', allow_pickle=True, encoding='latin1')
-    initial = numpy.load(dir + 'initial.txt', allow_pickle=True, encoding='latin1')
-    kmeans = numpy.load(dir + 'kmeans.txt', allow_pickle=True, encoding='latin1')
+    data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
+    initial = numpy.load(dir + 'initial.pkl', allow_pickle=True, encoding='latin1')
+    kmeans = numpy.load(dir + 'kmeans.pkl', allow_pickle=True, encoding='latin1')
     k = cluster.partition.kmeans(data,3,initial=initial)
     t = numpy.allclose(k,kmeans,rtol,atol)
     if t and verbose > 1:
@@ -580,7 +580,7 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #cmeans(data,nclusters,p,initial,rtol,atol)
-    cmeans = numpy.load(dir + 'cmeans.txt', allow_pickle=True, encoding='latin1')
+    cmeans = numpy.load(dir + 'cmeans.pkl', allow_pickle=True, encoding='latin1')
     c = cluster.partition.cmeans(data,3,initial=initial)
     t = numpy.allclose(c,cmeans,rtol,atol)
     if t and verbose > 1:
@@ -591,7 +591,7 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         testfail += 1
     testnum += 1
     #cmeans_noise(data,nclusters,p,initial,rtol,atol,l)
-    cmeans_noise = numpy.load(dir + 'cmeans_noise.txt', allow_pickle=True, encoding='latin1')
+    cmeans_noise = numpy.load(dir + 'cmeans_noise.pkl', allow_pickle=True, encoding='latin1')
     c = cluster.partition.cmeans_noise(data,3,initial=initial)
     t = numpy.allclose(c,cmeans_noise,rtol,atol)
     if t and verbose > 1:
@@ -638,9 +638,9 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
         warnings.simplefilter('ignore')
         testnum = 0
         testfail = 0
-        dm = numpy.load(dir + 'legacy_dm.txt', allow_pickle=True)
-        clusterid = numpy.load(dir + 'legacy_clusterid.txt', allow_pickle=True)
-        old_silhouette = numpy.load(dir + 'legacy_silhouette.txt', allow_pickle=True)
+        dm = numpy.load(dir + 'legacy_dm.pkl', allow_pickle=True)
+        clusterid = numpy.load(dir + 'legacy_clusterid.pkl', allow_pickle=True)
+        old_silhouette = numpy.load(dir + 'legacy_silhouette.pkl', allow_pickle=True)
         sil = cluster.stats.old_silhouette(1,clusterid,dm)
         t = numpy.allclose(sil,old_silhouette,rtol,atol)
         if t and verbose > 1:
@@ -650,7 +650,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('old_silhouette fails')
             testfail += 1
         testnum += 1
-        f = open(dir + 'legacy_members.txt', 'rb')
+        f = open(dir + 'legacy_members.pkl', 'rb')
         members = pickle.load(f)
         mems = cluster.stats.members(clusterid)
         t = mems == members
@@ -661,7 +661,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('members fails')
             testfail += 1
         testnum += 1
-        levs = numpy.load(dir + 'legacy_levs.txt', allow_pickle=True)
+        levs = numpy.load(dir + 'legacy_levs.pkl', allow_pickle=True)
         l = cluster.stats.clusterid_to_levs(clusterid)
         t = numpy.allclose(l,levs,rtol,atol)
         if t and verbose > 1:
@@ -680,10 +680,10 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('levs_to_clusterid fails')
             testfail += 1
         testnum += 1
-        method = pickle.load(dir + 'legacy_method.txt')
-        transpose = pickle.load(dir + 'legacy_transpose.txt')
-        data = numpy.load(dir + 'data.txt', allow_pickle=True)
-        old_singleclustercentroids = numpy.load(dir + 'legacy_singleclustercentroids.txt', allow_pickle=True)
+        method = pickle.load(dir + 'legacy_method.pkl')
+        transpose = pickle.load(dir + 'legacy_transpose.pkl')
+        data = numpy.load(dir + 'data.pkl', allow_pickle=True)
+        old_singleclustercentroids = numpy.load(dir + 'legacy_singleclustercentroids.pkl', allow_pickle=True)
         n = 0
         for i in method:
             for j in transpose:
@@ -700,7 +700,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                     testfail += 1
                 testnum += 1
                 n += 1
-        old_clustercentroids = numpy.load(dir + 'legacy_clustercentroids.txt', allow_pickle=True)
+        old_clustercentroids = numpy.load(dir + 'legacy_clustercentroids.pkl', allow_pickle=True)
         d = cluster.stats.old_clustercentroids(data,members)
         t = numpy.allclose(d,old_clustercentroids,rtol,atol)
         if t and verbose > 1:
@@ -710,7 +710,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('old_clustercentroids fails')
             testfail += 1
         testnum += 1
-        old_SSE = numpy.load(dir + 'legacy_SSE.txt', allow_pickle=True)
+        old_SSE = numpy.load(dir + 'legacy_SSE.pkl', allow_pickle=True)
         d = cluster.stats.old_SSE(data,clusterid)
         t = numpy.allclose(d,old_SSE,rtol,atol)
         if t and verbose > 1:
@@ -720,7 +720,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('old_SSE fails')
             testfail += 1
         testnum += 1
-        f = open(dir + 'legacy_SSE.txt', 'rb')
+        f = open(dir + 'legacy_SSE.pkl', 'rb')
         SSE = pickle.load(f)
         sse = cluster.stats.SSE(data,levs)
         t = numpy.allclose(sse,SSE,rtol,atol)
@@ -731,7 +731,7 @@ def legacy(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
                 print('SSE fails')
             testfail += 1
         testnum += 1
-        point_SSE = numpy.load(dir + 'legacy_point_SSE.txt', allow_pickle=True)
+        point_SSE = numpy.load(dir + 'legacy_point_SSE.pkl', allow_pickle=True)
         psse = cluster.stats.point_SSE(data,levs)
         t = numpy.allclose(psse,point_SSE,rtol,atol)
         if t and verbose > 1:

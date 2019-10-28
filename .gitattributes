@@ -1,0 +1,2 @@
+# Pickled files must retain unix line endings
+*.pkl text eol=lf
