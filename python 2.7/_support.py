@@ -6,15 +6,6 @@ A complete version history and licence and copyright information are located
 in the source code.
 """
 
-#####################
-## Version History ##
-#####################
-
-supportversionnum = '0.0'
-supportmodified = '25 June, 2010'
-supportmodifier = 'R. Padraic Springuel'
-#Initial creation date.
-
 ##########################
 ## Liscense Information ##
 ##########################

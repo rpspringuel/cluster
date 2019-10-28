@@ -19,40 +19,6 @@ A complete version history and licence and copyright information are located
 in the source code.
 """
 
-#####################
-## Version History ##
-#####################
-
-plotversionnum = '1.0'
-plotmodified = '8 February, 2008'
-plotmodifier = 'R. Padraic Springuel'
-#Started porting functions from ClusterPlot and editing them to reference this
-#package's functions instead of Pycluster.
-
-plotversionnum = '1.1'
-plotmodified = '11 February, 2008'
-plotmodifier = 'R. Padraic Springuel'
-#Finished porting functions from ClusterPlot.
-
-plotversionnum = '1.2'
-plotmodified = '4 June, 2009'
-plotmodifier = 'R. Padraic Springuel'
-#Fixed a problem with datasort when the heavy argument is specified.
-
-plotversionnum = '1.3'
-plotmodified = '22 April, 2010'
-plotmodifier = 'R. Padraic Springuel'
-#Fixed a problem with datasort when the heavy argument is specicied to provide
-#for a default weight argument and to manage weight and pop better.
-
-plotversionnum = '1.3.1'
-plotmodified = '19 May, 2010'
-plotmodifier = 'R. Padraic Springuel'
-#Changed treebuild to provide special handling for legend labels.  Old behavior
-#treated labels as a keyword argument to be passed to pylab.plot, which leads to
-#a legend entry for each line in the dendrogram.  new behavior only passes the
-#label keyword for the first line to be plotted by treebuild.
-
 ##########################
 ## Liscense Information ##
 ##########################

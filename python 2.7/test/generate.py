@@ -7,12 +7,6 @@ need to be imported when a change to cluster requires an expansion or
 modification to the tests needed to verify its operation.
 """
 
-#####################
-## Version History ##
-#####################
-
-#Written simultaneously as test/__init__.py.  See that file for version information.
-
 ##########################
 ## Liscense Information ##
 ##########################

@@ -6,19 +6,6 @@ A complete version history and licence and copyright information are located
 in the source code.
 """
 
-#####################
-## Version History ##
-#####################
-
-supportversionnum = '0.0'
-supportmodified = '25 June, 2010'
-supportmodifier = 'R. Padraic Springuel'
-#Initial creation date.
-
-supportversionnum = '3.0.0'
-supportmodified = '19 September, 2019'
-supportmodifier = 'R. Padraic Springuel'
-#Python 3.7 compatibility
 
 ##########################
 ## Liscense Information ##

@@ -9,67 +9,6 @@ Pycluster.  In particular, functions are modified with an eye towards the
 inclusion of fuzzy clustering, which Pycluster doesn't do.
 """
 
-#####################
-## Version History ##
-#####################
-
-clusterversionnum = '1.0'
-clustermodified = '14 November, 2007'
-clustermodifier = 'R. Padraic Springuel'
-#Initial creation date
-#import statements for distances and stats
-
-clusterversionnum = '1.0.1'
-clustermodified = '15 November, 2007'
-clustermodifier = 'R. Padraic Springuel'
-#Changed distances import statements so that only disambiguation function, distance, is brought into cluster name space.  This restricts direct access to the individual distance functions, but said access can be restored by uncommenting the appropriate line in this program.  Said access, however, should not be needed under normal use of this package.
-#This convention will be followed for all disambiguated functions in the future. 
-
-clusterversionnum = '1.0.2'
-clustermodified = '30 December, 2007'
-clustermodifier = 'R. Padraic Springuel'
-#Documentation update and reformat to docstring standards.
-
-clusterversionnum = '1.0.3'
-clustermodified = '2 January, 2008'
-clustermodifier = 'R. Padraic Springuel'
-#Documentation update.
-
-clusterversionnum = '1.1'
-clustermodified = '24 January, 2008'
-clustermodifier = 'R. Padraic Springuel'
-#Added partition import statement.
-
-clusterversionnum = '1.2'
-clustermodified = '6 February, 2008'
-clustermodifier = 'R. Padraic Springuel'
-#Added hierarch import statement.
-
-clusterversionnum = '1.3'
-clustermodified = '11 February, 2008'
-clustermodifier = 'R. Padraic Springuel'
-#added hierarch.plot import statement.
-
-clusterversionnum = '1.3.1'
-clustermodified = '27 April, 2010'
-clustermodifier = 'R. Padraic Springuel'
-#Fixed minor bug in clusterversion.  Added test function.
-
-clusterversionnum = '1.3.2'
-clustermodified = '6 May, 2010'
-clustermodifier = 'R. Padraic Springuel'
-#Chaged way test works to add functionality.
-
-clusterversionnum = '1.3.3'
-clustermodified = '6 May, 2010'
-clustermodifier = 'R. Padraic Springuel'
-#Modification to test interface for legacy functions.  Legacy functions are not tested by default but the new option allows for them to be tested if desired.
-
-clusterversionnum = '1.3.4'
-clustermodified = '21 June, 2010'
-clustermodifier = 'R. Padraic Springuel'
-#Module exceptions moved to top level
-
 ##########################
 ## Liscense Information ##
 ##########################
