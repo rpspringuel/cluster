@@ -1205,13 +1205,3 @@ def divtreecluster(data=None,weights=None,dist='e',distancematrix=None):
     n1 = numpy.argmax(dissat)
     new = numpy.zeros_like(distancematrix)
     distancematrix = dstack((distancematrix,new))
-    
-
-def hierarchversion():
-    print 'hierarch/__init__.py'
-    print 'by R. Padraic Springuel'
-    print 'Created 22 January, 2008'
-    print 'Version %s modified %s' % (hierarchversionnum,hierarchmodified)
-    print 'Most recent modification by %s' % hierarchmodifier
-    return
-

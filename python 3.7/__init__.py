@@ -42,16 +42,18 @@ inclusion of fuzzy clustering, which Pycluster doesn't do.
 #ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   #
 #POSSIBILITY OF SUCH DAMAGE.                                                  #
 ###############################################################################
+__version__ = "3.0.0b1"
 
 #######################
 ## Necessary imports ##
 #######################
 
-from .distances import distance,distancesversion
+from .distances import distance
 from . import stats
 from . import partition
 from . import hierarch
 from .hierarch import plot
+from .version import __version__
 
 ######################
 ## Optional imports ##
@@ -102,20 +104,4 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
     print('Testing complete')
     print(('%i tests performed with %i failing' % (testnum,testfail)))
     test.testversion()
-    return
-
-def clusterversion():
-    print('cluster/__init__.py')
-    print('Created 14 November, 2007')
-    print('by R. Padraic Springuel')
-    print(('Version %s modified %s' % (clusterversionnum,clustermodified)))
-    print(('Most recent modification by %s' % clustermodifier))
-    print('')
-    distancesversion()
-    print('')
-    stats.statsversion()
-    print('')
-    partition.partitionversion()
-    print('')
-    hierarch.hierarchcersion()
     return

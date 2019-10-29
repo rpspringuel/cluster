@@ -970,12 +970,3 @@ def levscompare(levs1,levs2,rtol=1.0000000000000001e-005,atol=1e-008):
         matches.sort()
         equiv = matches == range(len(levs2[0]))
     return equiv
-    
-def statsversion():
-    print 'cluster/stats.py'
-    print 'Created 14 November, 2007'
-    print 'by R. Padraic Springuel'
-    print 'Version %s modified %s' % (statsversionnum,statsmodified)
-    print 'Most recent modification by %s' % statsmodifier
-    return
-      

@@ -50,13 +50,6 @@ for i in sys.path:
         dir = i + '/cluster/test/data/'
         break
 
-def testversion():
-    print('cluster/test/__init__.py')
-    print('Created 27 April, 2010')
-    print('by R. Padraic Springuel')
-    print('Version %s modified %s' % (testversionnum,testmodified))
-    print('Most recent modification by %s' % testmodifier)
-
 def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     """Tests to see if distance is working properly.
     

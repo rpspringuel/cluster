@@ -16,6 +16,10 @@ for those eary version numbers.
 ### Added
 -Python 3.7 Compatibility
 
+### Removed
+-As part of the rationalization of the version number, the individual version
+ functions have been removed from each file.
+
 
 ## [2.0.0 - test/__init__.py] - 2019-10-22
 ### Changed

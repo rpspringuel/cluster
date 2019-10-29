@@ -463,12 +463,3 @@ def discretehistogram(x,w=None):
         else:
             counts[i] = numpy.sum((x == uniques[i])*w)
     return uniques,counts
-
-def supportversion():
-    print('cluster/_support.py')
-    print('Created 25 June, 2010')
-    print('by R. Padraic Springuel')
-    print('Version %s modified %s' % (supportversionnum,supportmodified))
-    print('Most recent modification by %s' % supportmodifier)
-    return
-      

@@ -285,11 +285,3 @@ def cmeans_noise(data,nclusters=2,weights=None,p=2.,method='a',dist='e',initial=
                 again = False
             initial = levs
     return levs
-
-def partitionversion():
-    print 'partition.py'
-    print 'by R. Padraic Springuel'
-    print 'Created 22 January, 2008'
-    print 'Version %s modified %s' % (partionversionnum,partitionmodified)
-    print 'Most recent modification by %s' % partitionmodifier
-    return

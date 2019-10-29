@@ -616,13 +616,3 @@ def fadetree(tree,heavy=None,weight=None,line='b-',sym=False,p=0.95,fontdict=Non
     treebuild(coords,tree,unmask9,'v',False,line,p,alpha=0.9)
     treebuild(coords,tree,unmask0,'v',False,line,p,alpha=1.0)
     return
-
-
-def plotversion():
-    print 'plot.py'
-    print 'Created 08 February, 2008'
-    print 'by R. Padraic Springuel'
-    print 'Version %s modified %s' % (plotversionnum,plotmodified)
-    print 'Most recent modification by %s' % plotmodifier
-    return
-

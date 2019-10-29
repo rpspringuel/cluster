@@ -727,12 +727,3 @@ def chebychev(a,b):
     """
     result = numpy.nanmax(a-b)
     return result
-    
-    
-def distancesversion():
-    print 'cluster/distances.py'
-    print 'Created 6 November, 2007'
-    print 'by R. Padraic Springuel'
-    print 'Version %s modified %s' % (distancesversionnum,distancesmodified)
-    print 'Most recent modification by %s' % distancesmodifier
-    return
