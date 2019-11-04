@@ -19,6 +19,7 @@ for those eary version numbers.
 ### Removed
 -As part of the rationalization of the version number, the individual version
  functions have been removed from each file.
+-Legacy functions are removed from the Python 3.7 files.
 
 
 ## [2.0.0 - test/__init__.py] - 2019-10-22
