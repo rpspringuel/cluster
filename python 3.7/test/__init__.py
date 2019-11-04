@@ -490,4 +490,4 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
 
 if __name__ == '__main__':
     import cluster
-    cluster.test()
+    cluster.run_tests()
