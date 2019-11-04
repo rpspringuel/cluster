@@ -68,5 +68,5 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
         testfail += t[1]
     print('Testing complete')
     print(('%i tests performed with %i failing' % (testnum,testfail)))
-    test.testversion()
+    print("Cluster package version %s" % (__version__))
     return
