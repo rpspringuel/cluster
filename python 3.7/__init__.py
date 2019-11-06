@@ -39,7 +39,7 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
         verbose : int
             Controls amount of output to screen:
                 0 : Only final results are printed to screen.
-                1 : Tests which fail print(a message to the screen.)
+                1 : Tests which fail print a message to the screen.
                 2 : All tests report on pass/fail status to screen.
         rtol : float
             The allowable relative error between calculated values and known
