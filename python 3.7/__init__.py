@@ -32,7 +32,7 @@ from .version import __version__
 ## Module Functions ##
 ######################
 
-def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
+def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008):
     """Tests to see if cluster is working properly.
     
     Parameters:
@@ -48,8 +48,6 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
             The allowable absolute error in levs between calculated values and 
             known results.  If (rtol*known)+atol < abs(known-calc) then test
             passes.
-        leg : boolean
-            Controls whether legacy functions should be tested.
     """
     from . import test
     testnum,testfail = test.distance(verbose)
@@ -62,10 +60,6 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,leg=False):
     t = test.partition(verbose)
     testnum += t[0]
     testfail += t[1]
-    if leg:
-        t = test.legacy(verbose)
-        testnum += t[0]
-        testfail += t[1]
     print('Testing complete')
     print(('%i tests performed with %i failing' % (testnum,testfail)))
     print("Cluster package version %s" % (__version__))
