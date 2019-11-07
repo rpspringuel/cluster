@@ -51,27 +51,27 @@ dist = [['e', 'Euclidian'],
         ['L3', 'Third order Minkowski Metric'],
         ['L4', 'Fourth order Minkowski Metric'],
         ['Linf', 'Chebychev']]
-f = file(dir + 'distance_dist.pkl','w')
-pickle.dump(dist,f)
+with open(dir + 'distance_dist.pkl','w') as f:
+    pickle.dump(dist,f)
 distance_no_missing = {}
 for i in dist:
     d = cluster.distances.distance(a,b,weights,i[0])
     distance_no_missing[i[0]] = d
-f = file(dir + 'distances_no_missing.pkl','w')
-pickle.dump(distance_no_missing,f)
+with open(dir + 'distances_no_missing.pkl','w') as f:
+    pickle.dump(distance_no_missing,f)
 distance_missing = {}
 for i in dist:
     d = cluster.distances.distance(a,c,weights,i[0])
     distance_missing[i[0]] = d
-f = file(dir + 'distances_missing.pkl','w')
-pickle.dump(distance_missing,f)
+with open(dir + 'distances_missing.pkl','w') as f:
+    pickle.dump(distance_missing,f)
 
 print('Stats module')
 data = numpy.random.rand(40,6)
 data.dump(dir + 'data.pkl')
 distancematrix = cluster.stats.distancematrix(data)
-f = file(dir + 'distancematrix.pkl','w')
-pickle.dump(distancematrix,f)
+with open(dir + 'distancematrix.pkl','w') as f:
+    pickle.dump(distancematrix,f)
 fulldistancematrix = cluster.stats.fulldistancematrix(data)
 fulldistancematrix.dump(dir + 'fulldistancematrix.pkl')
 levs = numpy.random.rand(40,4)
@@ -80,12 +80,12 @@ levs.dump(dir + 'levs.pkl')
 silhouette = cluster.stats.silhouette(1,levs,dm=distancematrix)
 silhouette.dump(dir + 'silhouette.pkl')
 check1 = cluster.stats.levscheck(levs)
-f = file(dir + 'check1.pkl','w')
-pickle.dump(check1,f)
+with open(dir + 'check1.pkl','w') as f:
+    pickle.dump(check1,f)
 levs2 = numpy.concatenate([levs,numpy.zeros((len(levs),1)),numpy.ones((len(levs),1))],axis=1)
 check2 = cluster.stats.levscheck(levs2)
-f = file(dir + 'check2.pkl','w')
-pickle.dump(check2,f)
+with open(dir + 'check2.pkl','w') as f:
+    pickle.dump(check2,f)
 method = [['a','arithmetic mean'],
           ['m','median'],
           ['s','absolute mean'],
@@ -94,13 +94,13 @@ method = [['a','arithmetic mean'],
           ['q','quadratic mean'],
           ['d','mode'],
           ['oe','medoid']]
-f = file(dir + 'method.pkl','w')
-pickle.dump(method,f)
+with open(dir + 'method.pkl','w') as f:
+    pickle.dump(method,f)
 singleclustercentroid = {}
 for i in method:
     singleclustercentroid[i[0]] = cluster.stats.singleclustercentroid(data,lev=levs[:,0],method=i[0])
-f = file(dir + 'singleclustercentroid.pkl','w')
-pickle.dump(singleclustercentroid,f)
+with open(dir + 'singleclustercentroid.pkl','w') as f:
+    pickle.dump(singleclustercentroid,f)
 clustercentroids = cluster.stats.clustercentroids(data,levs)
 clustercentroids.dump(dir + 'clustercentroids.pkl')
 SEmatrix = cluster.stats.SEmatrix(data,levs)
@@ -108,15 +108,15 @@ SEmatrix.dump(dir + 'SEmatrix.pkl')
 SElink = [['m','maximum link'],
           ['s','single link'],
           ['a','average link']]
-f = file(dir + 'SElink.pkl','w')
-pickle.dump(SElink,f)
+with open(dir + 'SElink.pkl','w') as f:
+    pickle.dump(SElink,f)
 SEdata = numpy.random.randint(5,size=(40,6))
 SEdata.dump(dir + 'SEdata.pkl')
 SEmatrix_mode = {}
 for i in SElink:
     SEmatrix_mode[i[0]] = cluster.stats.SEmatrix(SEdata,levs,link=i[0],method='d')
-f = file(dir + 'SEmatrix_mode.pkl','w')
-pickle.dump(SEmatrix_mode,f)
+with open(dir + 'SEmatrix_mode.pkl','w') as f:
+    pickle.dump(SEmatrix_mode,f)
 
 print('Hierarch module')
 links = [['s','Single Link'],
@@ -127,15 +127,15 @@ links = [['s','Single Link'],
          ['g',"Grower's Link"],
          [0.4,'Flexible Strategy'],
          [numpy.array([0.2,0.3,0.4,0.5]),'Lance-Wiliams Coefficients']]
-f = file(dir + 'links.pkl','w')
-pickle.dump(links,f)
+with open(dir + 'links.pkl','w') as f:
+    pickle.dump(links,f)
 tie = [[None,'No Ties'],
        ['aggr','Aggresive Group Formation'],
        ['doc','Docile Group Formation'],
        ['random','Random tie resolution'],
        ['sas','SAS/STAT tie breaking method']]
-f = file(dir + 'tie.pkl','w')
-pickle.dump(tie,f)
+with open(dir + 'tie.pkl','w') as f:
+    pickle.dump(tie,f)
 for i in links:
     for j in tie:
         tree = cluster.hierarch.aggtreecluster(distancematrix = fulldistancematrix,link=i[0],tie=j[0],dist='p')
@@ -146,8 +146,8 @@ clinks = [['co','Medoid Link'],
 #          ['cds','Mode Single Link'],
 #          ['cdm','Mode Complete Link']
            ]
-f = file(dir + 'clinks.pkl','w')
-pickle.dump(clinks,f)
+with open(dir + 'clinks.pkl','w') as f:
+    pickle.dump(clinks,f)
 for i in clinks:
     for j in tie:
         tree = cluster.hierarch.aggtreecluster(data=data,link=i[0],tie=j[0])
@@ -155,61 +155,61 @@ for i in clinks:
         tree.save(dir + filename)
 test = [(0,'test0'), (1,'test1'),(2,'test2'),(-1,'test-1'),(-2,'test-2')]
 tree.aliases(test)
-f = file(dir + 'tree.pkl','w')
-pickle.dump(tree,f)
+with open(dir + 'tree.pkl','w') as f:
+    pickle.dump(tree,f)
 node = tree[0]
-f = file(dir + 'node.pkl','w')
-pickle.dump(node,f)
+with open(dir + 'node.pkl','w') as f:
+    pickle.dump(node,f)
 tree.save(dir + 'tr.pkl')
 ancestors = tree.ancestors(0)
-f = file(dir + 'ancestors.pkl','w')
-pickle.dump(ancestors,f)
+with open(dir + 'ancestors.pkl','w') as f:
+    pickle.dump(ancestors,f)
 decendants = tree.decendants(-2)
-f = file(dir + 'decendants.pkl','w')
-pickle.dump(decendants,f)
+with open(dir + 'decendants.pkl','w') as f:
+    pickle.dump(decendants,f)
 cut = tree.cut(12)
 cut.dump(dir + 'cut.pkl')
 tree.scale()
-f = file(dir + 'tree_scaled.pkl','w')
-pickle.dump(tree,f)
+with open(dir + 'tree_scaled.pkl','w') as f:
+    pickle.dump(tree,f)
 kind = [['dist','distances'],
         ['rank','ranks']]
-f = file(dir + 'kind.pkl','w')
-pickle.dump(kind,f)
+with open(dir + 'kind.pkl','w') as f:
+    pickle.dump(kind,f)
 for i in kind:
     cop = tree.cophenetic(i[0])
     filename = 'cop_%s.pkl' % i[0]
     cop.dump(dir + filename)
 treestring = str(tree)
-f = file(dir + 'treestring.pkl','w')
-pickle.dump(treestring,f)
+with open(dir + 'treestring.pkl','w') as f:
+    pickle.dump(treestring,f)
 heavy = [[None,'not sorted'],
          ['left','sorted left'],
          ['right','sorted right']]
-f = file(dir + 'heavy.pkl','w')
-pickle.dump(heavy,f)
+with open(dir + 'heavy.pkl','w') as f:
+    pickle.dump(heavy,f)
 plot_weight = numpy.random.rand(40)
 plot_weight.dump(dir + 'plot_weight.pkl')
 for i in heavy:
     filename = 'plot_datasort_%s.pkl' % i[0]
     plot_datasort = cluster.hierarch.plot.datasort(tree,i[0],plot_weight)
-    f = file(dir + filename,'w')
-    pickle.dump(plot_datasort,f)
+    with open(dir + filename,'w') as f:
+        pickle.dump(plot_datasort,f)
 distalt = [[None,'node distances'],
            ['order','formation order'],
            [numpy.random.rand(40),'provided distances']]
-f = file(dir + 'distalt.pkl','w')
-pickle.dump(distalt,f)
+with open(dir + 'distalt.pkl','w') as f:
+    pickle.dump(distalt,f)
 sym = [[True,'symmetric branching'],
        [False,'weighted branching']]
-f = file(dir + 'sym.pkl','w')
-pickle.dump(sym,f)
+with open(dir + 'sym.pkl','w') as f:
+    pickle.dump(sym,f)
 for i in distalt:
     for j in sym:
-        filename = 'coords_%s_%s.pkl' % (i[1],j[0])
-        f = file(dir + filename, 'w')
         coords = cluster.hierarch.plot.coordinates(tree,zero=-1,distalt=i[0], sym=j[0])
-        pickle.dump(coords,f)
+        filename = 'coords_%s_%s.pkl' % (i[1],j[0])
+        with open(dir + filename, 'w') as f:
+            pickle.dump(coords,f)
 
 print('Partition module')
 initial = numpy.zeros((40,3))
