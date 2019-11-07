@@ -51,7 +51,7 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             Number of tests which failed by being outside tolerance.
     """
     if verbose:
-        print('Testing distances module')
+        print('Testing distances submodule')
     with warnings.catch_warnings():
         warnings.simplefilter('ignore')
         testnum = 0
@@ -146,7 +146,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     testfail_pf = 0
     testfail_tol = 0
     if verbose:
-        print('Testing stats module')
+        print('Testing stats submodule')
     #distancematrix (data)
     data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
     with open(dir + 'distancematrix.pkl', 'rb') as f:
@@ -406,7 +406,7 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     testfail_pf = 0
     testfail_tol = 0
     if verbose:
-        print('Testing hierarch module')
+        print('Testing hierarch submodule')
     cluster.hierarch.rtol = rtol
     cluster.hierarch.atol = atol
     #loadaggtree (filename)
@@ -817,7 +817,7 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     testfail_pf = 0
     testfail_tol = 0
     if verbose:
-        print('Testing partition module')
+        print('Testing partition submodule')
     #kmeans(data,nclusters,initial,threshold)
     data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
     initial = numpy.load(dir + 'initial.pkl', allow_pickle=True, encoding='latin1')
