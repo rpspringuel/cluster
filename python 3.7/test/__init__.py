@@ -62,10 +62,10 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
         b = numpy.load(dir + 'distance_b.pkl', allow_pickle=True)
         c = numpy.load(dir + 'distance_c.pkl', allow_pickle=True, encoding='latin1')
         weights = numpy.load(dir + 'distance_weights.pkl', allow_pickle=True, encoding='latin1')
-        f = open(dir + 'distance_dist.pkl', 'rb')
-        dist = pickle.load(f)
-        f = open(dir + 'distances_no_missing.pkl', 'rb')
-        distances_no_missing = pickle.load(f, encoding='latin1')
+        with open(dir + 'distance_dist.pkl', 'rb') as f:
+            dist = pickle.load(f)
+        with open(dir + 'distances_no_missing.pkl', 'rb') as f:
+            distances_no_missing = pickle.load(f, encoding='latin1')
         for i in dist:
             try:
                 d = cluster.distances.distance(a,b,weights,i[0])
@@ -85,8 +85,8 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                         print('FAIL: %s without missing data is outside tolerance' % i[1])
                     testfail_tol += 1
             testnum += 1
-        f = open(dir + 'distances_missing.pkl', 'rb')
-        distances_missing = pickle.load(f, encoding='latin1')
+        with open(dir + 'distances_missing.pkl', 'rb') as f:
+            distances_missing = pickle.load(f, encoding='latin1')
         for i in dist:
             try:
                 d = cluster.distances.distance(a,c,weights,i[0])
@@ -149,8 +149,8 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
         print('Testing stats module')
     #distancematrix (data)
     data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
-    f = open(dir + 'distancematrix.pkl', 'rb')
-    distancematrix = pickle.load(f,encoding='latin1')
+    with open(dir + 'distancematrix.pkl', 'rb') as f:
+        distancematrix = pickle.load(f,encoding='latin1')
     try:
         dm = cluster.stats.distancematrix(data)
     except Exception as ex:
@@ -215,8 +215,8 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_tol += 1
     testnum += 1    
     #levscheck (levs)
-    f = open(dir + 'check1.pkl', 'rb')
-    check1 = pickle.load(f)
+    with open(dir + 'check1.pkl', 'rb') as f:
+        check1 = pickle.load(f)
     try:
         c = cluster.stats.levscheck(levs)
     except Exception as ex:
@@ -234,8 +234,8 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 print('FAIL: levscheck on good levs array')
             testfail_pf += 1
     testnum += 1    
-    f = open(dir + 'check2.pkl', 'rb')
-    check2 = pickle.load(f)
+    with open(dir + 'check2.pkl', 'rb') as f:
+        check2 = pickle.load(f)
     levs2 = numpy.concatenate([levs,numpy.zeros((len(levs),1)),numpy.ones((len(levs),1))],axis=1)
     try:
         c = cluster.stats.levscheck(levs2)
@@ -260,10 +260,10 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #singleclustercentroid (data, lev)
-    f = open(dir + 'method.pkl', 'rb')
-    method = pickle.load(f)
-    f = open(dir + 'singleclustercentroid.pkl', 'rb')
-    singleclustercentroid = pickle.load(f, encoding='latin1')
+    with open(dir + 'method.pkl', 'rb') as f:
+        method = pickle.load(f)
+    with open(dir + 'singleclustercentroid.pkl', 'rb') as f:
+        singleclustercentroid = pickle.load(f, encoding='latin1')
     for i in method:
         try:
             c = cluster.stats.singleclustercentroid(data,lev=levs[:,0],method=i[0])
@@ -326,10 +326,10 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 print('FAIL: SEmatrix is outside tolerance')
             testfail_tol += 1
     testnum += 1
-    f = open(dir + 'SEmatrix_mode.pkl', 'rb')
-    SEmatrix_mode = pickle.load(f, encoding='latin1')
-    f = open(dir + 'SElink.pkl', 'rb')
-    SElink = pickle.load(f)
+    with open(dir + 'SEmatrix_mode.pkl', 'rb') as f:
+        SEmatrix_mode = pickle.load(f, encoding='latin1')
+    with open(dir + 'SElink.pkl', 'rb') as f:
+        SElink = pickle.load(f)
     SEdata = numpy.load(dir + 'SEdata.pkl', allow_pickle=True)
     for i in SElink:
         try:
@@ -410,8 +410,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     cluster.hierarch.rtol = rtol
     cluster.hierarch.atol = atol
     #loadaggtree (filename)
-    f = open(dir + 'tree.pkl', 'rb')
-    tree = pickle.load(f)
+    with open(dir + 'tree.pkl', 'rb') as f:
+        tree = pickle.load(f)
     try:
         tr = cluster.hierarch.loadaggtree(dir + 'tr.pkl')
     except Exception as ex:
@@ -431,8 +431,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #AggTree[i] = AggNode
-    f = open(dir + 'node.pkl', 'rb')
-    node = pickle.load(f)
+    with open(dir + 'node.pkl', 'rb') as f:
+        node = pickle.load(f)
     try:
         t = node == tree[0]
     except Exception as ex:
@@ -451,10 +451,10 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #aggtreecluster(link,aggr,distancematrix)
-    f = open(dir + 'links.pkl', 'rb')
-    links = pickle.load(f, encoding='latin1')
-    f = open(dir + 'tie.pkl', 'rb')
-    tie = pickle.load(f)
+    with open(dir + 'links.pkl', 'rb') as f:
+        links = pickle.load(f, encoding='latin1')
+    with open(dir + 'tie.pkl', 'rb') as f:
+        tie = pickle.load(f)
     fulldistancematrix = numpy.load(dir + 'fulldistancematrix.pkl', allow_pickle=True, encoding='latin1')
     for i in links:
         for j in tie:
@@ -479,8 +479,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                     testfail_pf += 1
             testnum += 1
     data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
-    f = open(dir + 'clinks.pkl', 'rb')
-    clinks = pickle.load(f)
+    with open(dir + 'clinks.pkl', 'rb') as f:
+        clinks = pickle.load(f)
     for i in clinks:
         for j in tie:
             try:
@@ -568,8 +568,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             if verbose:
                 print('FAIL: AggTree.ancestors raises %s' % type(ex).__name__)
     else:
-        f = open(dir + 'ancestors.pkl', 'rb')
-        ancestors = pickle.load(f)
+        with open(dir + 'ancestors.pkl', 'rb') as f:
+            ancestors = pickle.load(f)
         t = anc == ancestors
         if t and verbose > 1:
             print('PASS: AggTree.ancestors')
@@ -589,8 +589,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             if verbose:
                 print('FAIL: AggTree.decendants raises %s' % type(ex).__name__)
     else:
-        f = open(dir + 'decendants.pkl', 'rb')
-        decendants = pickle.load(f)
+        with open(dir + 'decendants.pkl', 'rb') as f:
+            decendants = pickle.load(f)
         t = dec == decendants
         if t and verbose > 1:
             print('PASS: AggTree.decendants')
@@ -638,8 +638,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #AggTree.scale()
-    f = open(dir + 'tree_scaled.pkl', 'rb')
-    tr = pickle.load(f, encoding='latin1')
+    with open(dir + 'tree_scaled.pkl', 'rb') as f:
+        tr = pickle.load(f, encoding='latin1')
     try:
         tree.scale()
     except Exception as ex:
@@ -659,8 +659,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #AggTree.cophenetic()
-    f = open(dir + 'kind.pkl', 'rb')
-    kind = pickle.load(f)
+    with open(dir + 'kind.pkl', 'rb') as f:
+        kind = pickle.load(f)
     for i in kind:
         filename = 'cop_%s.pkl' % i[0]
         cop = numpy.load(dir + filename, allow_pickle=True, encoding='latin1')
@@ -701,8 +701,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #str(AggTree)
-    f = open(dir + 'treestring.pkl', 'rb')
-    treestring = pickle.load(f)
+    with open(dir + 'treestring.pkl', 'rb') as f:
+        treestring = pickle.load(f)
     try:
         t = treestring == str(tree)
     except Exception as ex:
@@ -721,8 +721,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             testfail_pf += 1
     testnum += 1
     #plot.datasort(tree,heavy,weight)
-    f = open(dir + 'heavy.pkl', 'rb')
-    heavy = pickle.load(f)
+    with open(dir + 'heavy.pkl', 'rb') as f:
+        heavy = pickle.load(f)
     plot_weight = numpy.load(dir + 'plot_weight.pkl', allow_pickle=True, encoding='latin1')
     for i in heavy:
         filename = 'plot_datasort_%s.pkl' % i[0]
@@ -736,8 +736,8 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 if verbose:
                     print('FAIL: plot.datasort when data is %s raises %s' % (i[1],type(ex).__name__))
         else:
-            f = open(dir + filename, 'rb')
-            pd = pickle.load(f)
+            with open(dir + filename, 'rb') as f:
+                pd = pickle.load(f)
             t = pd == plot_datasort
             if t and verbose > 1:
                 print('PASS: plot.datasort when data is %s' % i[1])
@@ -747,14 +747,12 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 testfail_pf += 1
         testnum += 1
     #plot.coordinates(tree,zero,distalt,sym)
-    f = open(dir + 'distalt.pkl', 'rb')
-    distalt = pickle.load(f, encoding='latin1')
-    f = open(dir + 'sym.pkl', 'rb')
-    sym = pickle.load(f)
+    with open(dir + 'distalt.pkl', 'rb') as f:
+        distalt = pickle.load(f, encoding='latin1')
+    with open(dir + 'sym.pkl', 'rb') as f:
+        sym = pickle.load(f)
     for i in distalt:
         for j in sym:
-            filename = 'coords_%s_%s.pkl' % (i[1],j[0])
-            f = open(dir + filename, 'rb')
             try:
                 coords = cluster.hierarch.plot.coordinates(tree,zero=-1,distalt=i[0], sym=j[0])
             except Exception as ex:
@@ -762,7 +760,9 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 if verbose:
                     print('FAIL: plot.coordinates with %s and %s raises %s' % (i[1],j[1],type(ex).__name__))
             else:
-                coordinates = pickle.load(f, encoding='latin1')
+                filename = 'coords_%s_%s.pkl' % (i[1],j[0])
+                with open(dir + filename, 'rb') as f:
+                    coordinates = pickle.load(f, encoding='latin1')
                 t = numpy.allclose(coords,coordinates,rtol,atol)
                 if t and verbose > 1:
                     print('PASS: plot.coordinates with %s and %s' % (i[1],j[1]))
