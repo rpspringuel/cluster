@@ -679,7 +679,7 @@ def minkowski(a,b,weights,p):
     """
     result = weights*numpy.abs(a-b)**p
     N = numpy.nansum(~numpy.isnan(a)*~numpy.isnan(b)*weights)
-    return (numpy.nansum(result)/N)**(1/p)
+    return (numpy.nansum(result)/N)**(1/float(p))
 
 def chebychev(a,b):
     """Calculates the Chebychev distance between two data points.
