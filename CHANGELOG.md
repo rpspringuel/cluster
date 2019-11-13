@@ -13,6 +13,12 @@ out of order.  Which file was modified is thus appended to the version number
 for those eary version numbers.
 
 ## [Unreleased]
+### Fixed
+-The Minkowski distances were doing integer division in the exponent, leading to
+ the distances of 2nd order and higher always being evaluated with an exponent
+ of 0 (and thus forcing the distance to 1.0).  Forcing the exponent to use
+ float division (by wrapping the `p` parameter in `float`) fixes it.
+
 ### Added
 -Python 3.7 Compatibility
 
