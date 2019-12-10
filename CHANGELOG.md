@@ -13,6 +13,8 @@ out of order.  Which file was modified is thus appended to the version number
 for those eary version numbers.
 
 ## [Unreleased]
+
+## [3.0.0] - 2019-12-10
 ### Fixed
 -The Minkowski distances were doing integer division in the exponent, leading to
  the distances of 2nd order and higher always being evaluated with an exponent
