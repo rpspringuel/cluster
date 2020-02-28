@@ -211,6 +211,27 @@ for i in distalt:
         filename = 'coords_%s_%s.pkl' % (i[1],j[0])
         with open(dir + filename, 'wb') as f:
             pickle.dump(coords,f)
+orient = [['v','vertical'], #default value
+          ['h','horizontal']]
+invert = [[False,'upright'], #default value
+          [True,'inverted']]
+line = [['b-','blue solid line'], #defulat value
+        ['r:','red dotted line'],
+        ['g--','green dashed line']]
+p = [1.5,0.95,0.50] #defulat value is middle
+tree = cluster.hierarch.aggtreecluster(data) #revert to defaults on tree
+coords = cluster.hierarch.plot.coordinates(tree)
+for i in p:
+    for j in orient:
+        for k in invert:
+            for l in line:
+                filename = 'plot_treebuild_p_%.2f_%s_%s_%s.png' % (i,j[1],k[1],l[1])
+                pyplot.figure()
+                cluster.hierarch.plot.treebuild(coords,tree,p=i,orient=j[0],invert=k[0],line=l[0])
+                pyplot.savefig(dir + filename,dpi=150)
+                pyplot.close()
+    
+
 
 print('Partition module')
 initial = numpy.zeros((40,3))
