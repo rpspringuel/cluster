@@ -11,6 +11,7 @@ import numpy
 import cluster
 import pickle
 import sys
+import matplotlib.pyplot as pyplot
 
 for i in sys.path:
     if 'site-packages' in i:

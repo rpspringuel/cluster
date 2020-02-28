@@ -19,7 +19,7 @@ A complete version history and licence and copyright information are located
 in the source code.
 """
 
-import pylab
+import matplotlib.pyplot as pylab
 import numpy
 
 def datasort(tree,heavy=None,weight=None):
@@ -203,7 +203,6 @@ def treebuild(coords,tree,unmask=None,orient='v',invert=False,line='b-',p=0.95,l
     from numpy import array
     if unmask is None:
         unmask = numpy.ones(len(coords),bool)
-    pylab.hold(True)
     first = True
     for i in range(-len(tree),0):
         if unmask[i] and unmask[tree[i].left]:
