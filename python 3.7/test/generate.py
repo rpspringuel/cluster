@@ -226,9 +226,9 @@ for i in p:
         for k in invert:
             for l in line:
                 filename = 'plot_treebuild_p_%.2f_%s_%s_%s.png' % (i,j[1],k[1],l[1])
-                pyplot.figure()
+                pyplot.figure(dpi=150)
                 cluster.hierarch.plot.treebuild(coords,tree,p=i,orient=j[0],invert=k[0],line=l[0])
-                pyplot.savefig(dir + filename,dpi=150)
+                pyplot.savefig(dir + filename,dpi=figure)
                 pyplot.close()
     
 
