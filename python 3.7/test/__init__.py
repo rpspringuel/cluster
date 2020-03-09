@@ -768,9 +768,12 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             try:
                 coords = cluster.hierarch.plot.coordinates(tree,zero=-1,distalt=i[0], sym=j[0])
             except Exception as ex:
-                testfail_ex += 1
-                if verbose:
-                    print('FAIL: plot.coordinates with %s and %s raises %s' % (i[1],j[1],type(ex).__name__))
+                if not force:
+                    raise
+                else:
+                    testfail_ex += 1
+                    if verbose:
+                        print('FAIL: plot.coordinates with %s and %s raises %s' % (i[1],j[1],type(ex).__name__))
             else:
                 filename = 'coords_%s_%s.pkl' % (i[1],j[0])
                 with open(dir + filename, 'rb') as f:
