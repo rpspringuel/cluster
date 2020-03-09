@@ -10,6 +10,8 @@ import pickle
 import warnings
 import sys
 import os
+import PIL
+import imagehash
 
 for i in sys.path:
     if 'site-packages' in i:
@@ -830,7 +832,52 @@ def images(verbose=0,image_hash_size=10,image_hash_diff=5,force=False):
     if verbose:
         print("Testing image production")
     warnings.warn('plot functions which create pictures are not fully tested',UserWarning)
+    import matplotlib.pyplot as pylab
+    with open(dir + 'orient.pkl', 'rb') as f:
+        orient = pickle.load(f)
+    with open(dir + 'invert.pkl', 'rb') as f:
+        invert = pickle.load(f)
+    with open(dir + 'line.pkl', 'rb') as f:
+        line = pickle.load(f)
+    with open(dir + 'proportion.pkl', 'rb') as f:
+        p = pickle.load(f)
+    #unmask
+    #create default tree
+    data = numpy.load(dir + 'data.pkl', allow_pickle=True, encoding='latin1')
+    tree = cluster.hierarch.aggtreecluster(data)
+    coords = cluster.hierarch.plot.coordinates(tree)
     #plot.treebuild(coords,tree,unmask,orient,invert,line,p,label)
+    for i in p:
+        for j in orient:
+            for k in invert:
+                for l in line:
+                    filename = 'plot_treebuild_p_%.2f_%s_%s_%s.png' % (i,j[1],k[1],l[1])
+                    pylab.figure(dpi=150)
+                    try:
+                        cluster.hierarch.plot.treebuild(coords,tree,p=i,orient=j[0],invert=k[0],line=l[0])
+                    except Exception as ex:
+                        if not force:
+                            raise
+                        else:
+                            if verbose:
+                                print('FAIL: plot.treebuild with p=%0.2f, %s, %s, and %s raises %s' % (i,j[1],k[1],l[1],type(ex).__name__))
+                            testfail_ex += 1
+                    else:
+                        canvas = pylab.get_current_fig_manager().canvas
+                        canvas.draw()
+                        new_image = PIL.Image.frombytes('RGB', canvas.get_width_height(),canvas.tostring_rgb())
+                        new_hash = imagehash.phash(new_image,image_hash_size)
+                        pylab.close()
+                        std_image = PIL.Image.open(dir + filename)
+                        std_hash = imagehash.phash(std_image,image_hash_size)
+                        t = std_hash - new_hash < image_hash_diff
+                        if t and verbose > 1:
+                            print('PASS: plot.treebuild with p=%0.2f, %s, %s, and %s' % (i,j[1],k[1],l[1]))
+                        elif not t:
+                            if verbose:
+                                print('FAIL: plot.treebuild with p=%0.2f, %s, %s, and %s shows significant differences' % (i,j[1],k[1],l[1]))
+                            testfail_img += 1
+                    testnum += 1
     #plot.clusterlabels(coords,labels,unmask,fontdict)
     #plot.datalabels(tree,dlabels,heavy,weight,unmask,orient,fontdict)
     #plot.wholetree(tree,dlabels,heavy,weight,line,sym,p,fontdict)
