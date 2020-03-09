@@ -49,6 +49,9 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             like this in this function).
         testfail_tol : int
             Number of tests which failed by being outside tolerance.
+        testfail_img : int (0)
+            Number of image tests which failed by being too different (there are
+            no tests of this type in this function).
     """
     if verbose:
         print('Testing distances submodule')
@@ -58,6 +61,7 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
         testfail_ex = 0
         testfail_pf = 0
         testfail_tol = 0
+        testfail_img = 0
         a = numpy.load(dir + 'distance_a.pkl', allow_pickle=True)
         b = numpy.load(dir + 'distance_b.pkl', allow_pickle=True)
         c = numpy.load(dir + 'distance_c.pkl', allow_pickle=True, encoding='latin1')
@@ -106,7 +110,7 @@ def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                         print('FAIL: %s with missing data is outside tolerance' % i[1])
                     testfail_tol += 1
             testnum += 1
-    return testnum,testfail_ex,testfail_pf,testfail_tol
+    return testnum,testfail_ex,testfail_pf,testfail_tol,testfail_img
 
 
 def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
@@ -140,11 +144,15 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             Number of simple pass/fail tests which failed.
         testfail_tol : int
             Number of tests which failed by being outside tolerance.
+        testfail_img : int (0)
+            Number of image tests which failed by being too different (there are
+            no tests of this type in this function).
     """
     testnum = 0
     testfail_ex = 0
     testfail_pf = 0
     testfail_tol = 0
+    testfail_img = 0
     if verbose:
         print('Testing stats submodule')
     #distancematrix (data)
@@ -369,7 +377,7 @@ def stats(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 print('FAIL: levscompare')
             testfail_pf += 1
     testnum += 1
-    return testnum,testfail_ex,testfail_pf,testfail_tol
+    return testnum,testfail_ex,testfail_pf,testfail_tol,testfail_img
 
 
 def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
@@ -400,11 +408,15 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             Number of simple pass/fail tests which failed.
         testfail_tol : int
             Number of tests which failed by being outside tolerance.
+        testfail_img : int (0)
+            Number of image tests which failed by being too different (there are
+            no tests of this type in this function).
     """
     testnum = 0
     testfail_ex = 0
     testfail_pf = 0
     testfail_tol = 0
+    testfail_img = 0
     if verbose:
         print('Testing hierarch submodule')
     cluster.hierarch.rtol = rtol
@@ -771,15 +783,57 @@ def hierarch(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                         print('FAIL: plot.coordinates with %s and %s is outside tolerance' % (i[1],j[1]))
                     testfail_tol += 1
             testnum += 1
-    #PICTURE RETURNS
-    warnings.warn('plot functions which create pictures are not currently tested',UserWarning)
+    return testnum,testfail_ex,testfail_pf,testfail_tol,testfail_img
+
+
+def images(verbose=0,image_hash_size=10,image_hash_diff=5,force=False):
+    """Tests to see if image generation routines are working properly.
+
+    Currently all image generation routines are in hierarch.plot submodule.
+    
+    Parameters:
+        verbose : int
+            Controls amount of output to screen:
+                0 : Only final results are printed to screen.
+                1 : Tests which fail print a message to the screen.
+                2 : All tests report on pass fail status to screen.
+        image_hash_size : int
+            The size of the hash used to compare images (roughly the level of
+            detail considered).
+        image_hash_diff : int
+            The amount of difference allowed between image hashes before the
+            test image is considered to fail the test.
+        force : Boolean
+            Whether or not to keep testing when a test raises an exception.
+    
+    Returns:
+        testnum : int
+            Number of tests run by this function.
+        testfail_ex : int
+            Number of tests which failed by raising exceptions.
+        testfail_pf : int (0)
+            Number of simple pass/fail tests which failed (there are no
+            tests like this type in this function).
+        testfail_tol : int (0)
+            Number of tests which failed by being outside tolerance.
+        testfail_img : int
+            Number of image tests which failed by being too different.
+    """
+    testnum = 0
+    testfail_ex = 0
+    testfail_pf = 0
+    testfail_tol = 0
+    testfail_img = 0
+    if verbose:
+        print("Testing image production")
+    warnings.warn('plot functions which create pictures are not fully tested',UserWarning)
     #plot.treebuild(coords,tree,unmask,orient,invert,line,p,label)
     #plot.clusterlabels(coords,labels,unmask,fontdict)
     #plot.datalabels(tree,dlabels,heavy,weight,unmask,orient,fontdict)
     #plot.wholetree(tree,dlabels,heavy,weight,line,sym,p,fontdict)
     #plot.poptree(tree,heavy,weight,line,sym,p,lowerlimit,fontdict)
     #plot.fadetree(tree,heavy,weight,line,sym,p,fontdict)
-    return testnum,testfail_ex,testfail_pf,testfail_tol
+    return testnum,testfail_ex,testfail_pf,testfail_tol,testfail_img
 
 
 def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
@@ -811,11 +865,15 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             tests like this type in this function).
         testfail_tol : int
             Number of tests which failed by being outside tolerance.
+        testfail_img : int (0)
+            Number of image tests which failed by being too different (there are
+            no tests of this type in this function).
     """
     testnum = 0
     testfail_ex = 0
     testfail_pf = 0
     testfail_tol = 0
+    testfail_img = 0
     if verbose:
         print('Testing partition submodule')
     #kmeans(data,nclusters,initial,threshold)
@@ -880,7 +938,7 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
                 print('FAIL: cmeans_noise is outside tolerance')
             testfail_tol += 1
     testnum += 1
-    return testnum,testfail_ex,testfail_pf,testfail_tol
+    return testnum,testfail_ex,testfail_pf,testfail_tol,testfail_img
 
 
 if __name__ == '__main__':

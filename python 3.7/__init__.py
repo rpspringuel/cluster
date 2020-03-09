@@ -32,7 +32,7 @@ from .version import __version__
 ## Module Functions ##
 ######################
 
-def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
+def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,image_hash_size=8,image_hash_diff=5,force=False):
     """Tests to see if cluster is working properly.
     
     Parameters:
@@ -48,6 +48,12 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
             The allowable absolute error in levs between calculated values and 
             known results.  If (rtol*known)+atol < abs(known-calc) then test
             passes.
+        image_hash_size : int
+            The size of the hash used to compare images (roughly the level of
+            detail considered).
+        image_hash_diff : int
+            The amount of difference allowed between image hashes before the
+            test image is considered to fail the test.
         force : Boolean
             Whether or not to keep testing when a test raises an exception.
     """
@@ -56,9 +62,10 @@ def run_tests(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     test_distance = numpy.array(test.distance(verbose,rtol,atol,force))
     test_stats = numpy.array(test.stats(verbose,rtol,atol,force))
     test_hierarch = numpy.array(test.hierarch(verbose,rtol,atol,force))
+    test_images = numpy.array(test.images(verbose,image_hash_size,image_hash_diff,force))
     test_partition = numpy.array(test.partition(verbose,rtol,atol,force))
-    test_results = test_distance + test_stats + test_hierarch + test_partition
+    test_results = test_distance + test_stats + test_hierarch + test_images + test_partition
     print('Testing complete')
-    print('%3i tests performed\n%3i exceptions were raised\n%3i exact tests failed\n%3i inexact tests were outside tolerance' % tuple(test_results))
+    print('%3i tests performed\n%3i exceptions were raised\n%3i exact tests failed\n%3i inexact tests were outside tolerance\n%3i image tests showed significant differences' % tuple(test_results))
     print("Cluster package version %s" % (__version__))
     return
