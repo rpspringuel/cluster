@@ -168,7 +168,7 @@ def treebuild(coords,tree,unmask=None,orient='v',invert=False,line='b-',p=0.95,l
             and the last len(tree) values corresponding to the nodes.  For each
             value: if True that data point/node will be plotted; if False that
             data point/node will not be plotted.  Connections are only drawn if
-            both ends are plotted.
+            both ends are plotted.  If None then all points are plotted.
         orient : character
             Specifies whether the tree should be oriented vertically ('v',
             default) or horizontally ('h').  If horizontal, map top into left
@@ -275,7 +275,7 @@ def clusterlabels(coords,labels,unmask=None,fontdict=None,**kwargs):
         unmask : ndarray
             Rank 1 array of boolean values.  For each value: if True the
             corresponding label will be plotted; if False the corresponding
-            label will not be plotted.
+            label will not be plotted.  If None then all labels are plotted.
         fontdict : dictionary
             Dictionary to specify the appearence of the labels.
         **kwargs : multiple types
@@ -313,7 +313,8 @@ def datalabels(tree,dlabels,heavy=None,weight=None,unmask=None,orient='v',fontdi
         unmask : ndarray
             Rank 1 array of boolean values.  For each value: if True the
             corresponding data label will be plotted; if False the 
-            corresponding data label will not be plotted.
+            corresponding data label will not be plotted.  If None then all
+            data labels are plotted.
         orient : character
             Specifies whether the tree should be oriented vertically ('v',
             default) or horizontally ('h').  If horizontal, map top into left
