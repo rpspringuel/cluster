@@ -213,12 +213,21 @@ for i in distalt:
             pickle.dump(coords,f)
 orient = [['v','vertical'], #default value
           ['h','horizontal']]
+with open(dir + 'orient.pkl','wb') as f:
+    pickle.dump(orient,f)
 invert = [[False,'upright'], #default value
           [True,'inverted']]
+with open(dir + 'invert.pkl','wb') as f:
+    pickle.dump(invert,f)
 line = [['b-','blue solid line'], #defulat value
         ['r:','red dotted line'],
         ['g--','green dashed line']]
+with open(dir + 'line.pkl','wb') as f:
+    pickle.dump(line,f)
 p = [1.5,0.95,0.50] #defulat value is middle
+with open(dir + 'proportion.pkl','wb') as f:
+    pickle.dump(p,f)
+#unmask
 tree = cluster.hierarch.aggtreecluster(data) #revert to defaults on tree
 coords = cluster.hierarch.plot.coordinates(tree)
 for i in p:
