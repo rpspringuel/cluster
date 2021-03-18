@@ -9,10 +9,12 @@ inclusion of fuzzy clustering, which Pycluster doesn't do.
 
 ## Compatibility
 
-This package is compatible with both the Python 2.7 and 3.7 series.  Python 
-2.7 support will cease with Python 2.7's end of life (January 1, 2020).  The 
+This package is compatible with the Python 3.7 series.  The 
 Python 3.7 version should be compatible with other versions of Python 3.x, 
 but this has not been tested.
+
+The most recent version which is compatible with Python 2.7 is available on the python27 branch.  As Python 
+2.7 support will ceased with Python 2.7's end of life (January 1, 2020), this version is unsupported.
 
 ## Dependencies
 
@@ -25,13 +27,12 @@ http://matplotlib.org/) for many of its underlying calculation routines.  All
 three can be [obtained here](http://www.scipy.org/install.html).
 
 The test suite (which is not yet complete) also depends on 
-`cPickle`(2.7)/`pickle`(3.x), `sys`, and `os`, all of which should have come 
+`pickle`(3.x), `sys`, and `os`, all of which should have come 
 with your standard installation of Python.
 
 ## Installation
 
-To install simply copy the files in `python 2.7` or `python 3.7` (as 
-appropriate for your version) into a folder named `cluster` in your 
+To install simply copy the files into a folder named `cluster` in your 
 `site-pacakges` folder for Python.  If you wish to keep this folder in sync 
 with your clone of the repository and are using a Unix based system (e.g. Mac 
 OSX or Linux), you can create a symlink in `site-packages` which points to 
