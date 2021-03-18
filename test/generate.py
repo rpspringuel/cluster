@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 """Generates the test standards for cluster.
 
 Importing this module creates the test standards and data that cluster uses to

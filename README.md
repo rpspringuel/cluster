@@ -9,9 +9,7 @@ inclusion of fuzzy clustering, which Pycluster doesn't do.
 
 ## Compatibility
 
-This package is compatible with the Python 3.7 series.  The 
-Python 3.7 version should be compatible with other versions of Python 3.x, 
-but this has not been tested.
+This package is compatible with the Python 3.x series.
 
 The most recent version which is compatible with Python 2.7 is available on the 
 python27 branch.  As Python 2.7 support will ceased with Python 2.7's end of 
@@ -39,3 +37,34 @@ with your clone of the repository and are using a Unix based system (e.g. Mac
 OSX or Linux), you can create a symlink in `site-packages` which points to 
 it.  Just be sure that the folder (or symlink to the folder) in 
 `site-pacakges` is named `cluster`.
+
+## Testing
+
+There are two ways of testing the behavior of this package to make sure it
+is working on your system:
+
+  1) Run `test/__init__.py` (check to make sure it is executable and that you 
+  have python3 somewhere on your PATH).  
+  
+     To control the verbosity of the output, use the `-v` or `--verbose` flags.  
+     Available levels are:
+  
+      0) Only final results are printed to screen. (default)
+      1) Tests which fail print a message to the screen.
+      2) All tests report on pass/fail status to screen
+    
+     When a test raises an exception, it will halt the execution of the tests 
+     unless the `-f` or `--force` option is given.
+
+  2) In the Python interpreter, run the following commands:
+     ```
+     import cluster
+     cluster.run_tests()
+     ```
+
+     Verbosity of the output can be controled by setting the `verbose` argument 
+     to one of the values given above.
+     
+     To keep testing after a test raises an exception, set the `force` argument 
+     to True.
+

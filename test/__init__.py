@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 """Test suite designed to make sure cluster is working properly.
 
 Note that tests only cycle through flags which are not pass through flags (i.e.
@@ -11,10 +12,27 @@ import warnings
 import sys
 import os
 
-for i in sys.path:
-    if 'site-packages' in i:
-        dir = i + '/cluster/test/data/'
-        break
+if sys.path[0].endswith('cluster/test'):
+    dir = sys.path[0] + '/data/'
+    print("Looking for test data in " + dir)
+    try:
+        a = numpy.load(dir + 'distance_a.pkl', allow_pickle=True)
+        print("Found test data in " + dir)
+    except FileNotFoundError:
+        found = False
+        for i in sys.path:
+            if 'site-packages' in i:
+                dir = i + '/cluster/test/data/'
+                try:
+                    print("Looking for test data in " + dir)
+                    a = numpy.load(dir + 'distance_a.pkl', allow_pickle=True)
+                    found = True
+                    print("Found test data in " + dir)
+                    break
+                except FileNotFoundError:
+                    continue
+        if not found:
+            raise FileNotFoundError('Unable to locate test data.  You may need to run generate.py to create some.')
 
 
 def distance(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
@@ -882,7 +900,20 @@ def partition(verbose=0,rtol=1.0000000000000001e-005,atol=1e-008,force=False):
     testnum += 1
     return testnum,testfail_ex,testfail_pf,testfail_tol
 
-
 if __name__ == '__main__':
-    import cluster
-    cluster.run_tests()
+    verbose = 0
+    force = False
+    import argparse
+    
+    parser = argparse.ArgumentParser(
+                    description='Command-line access to make_passowrd.',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-v','--verbose',
+                        help='Set verbosity level',
+                        action='count', default=0, dest='verbose')
+    parser.add_argument('-f','--legacy',
+                        help='Force tests to keep going after exception',
+                        action='store_true',dest='force')
+
+    args=parser.parse_args()
+
+    cluster.run_tests(verbose=verbose,force=force)
