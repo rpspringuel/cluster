@@ -13,8 +13,9 @@ This package is compatible with the Python 3.7 series.  The
 Python 3.7 version should be compatible with other versions of Python 3.x, 
 but this has not been tested.
 
-The most recent version which is compatible with Python 2.7 is available on the python27 branch.  As Python 
-2.7 support will ceased with Python 2.7's end of life (January 1, 2020), this version is unsupported.
+The most recent version which is compatible with Python 2.7 is available on the 
+python27 branch.  As Python 2.7 support will ceased with Python 2.7's end of 
+life (January 1, 2020), this version is unsupported.
 
 ## Dependencies
 
